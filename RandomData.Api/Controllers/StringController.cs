@@ -29,6 +29,7 @@ namespace RandomData.Api.Controllers
         /// <param name="encoding">Encoding format of returned string</param>
         /// <returns></returns>
         [Route("random")]
+        [Route("")]
         public IActionResult GetRandomString(int length = -1, int minLength = 1, int maxLength = 100,
             string allowedCharacters = IStringGenerationService.DefaultAllowedCharacters, Format format = Format.Default,
             Encoding encoding = Encoding.None)
