@@ -19,7 +19,7 @@ namespace RandomData.Api
 
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddTransient<IStringGenerationService, RandomStringGenerationService>();
+			services.AddStringGenerationServices();
 			services.AddControllers();
 		}
 
