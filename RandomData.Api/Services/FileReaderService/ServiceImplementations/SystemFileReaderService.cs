@@ -6,10 +6,7 @@ namespace RandomData.Api.Services.FileReaderService.ServiceImplementations
     {
         public string GetFileContent(string path)
         {
-            if (!File.Exists(path) || string.IsNullOrWhiteSpace(path))
-            {
-                throw new FileNotFoundException();
-            }
+            if (!File.Exists(path) || string.IsNullOrWhiteSpace(path)) throw new FileNotFoundException();
 
             return File.ReadAllText(path);
         }

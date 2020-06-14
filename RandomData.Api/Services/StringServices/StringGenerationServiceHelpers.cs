@@ -9,11 +9,12 @@ namespace RandomData.Api.Services.StringServices
     public static class StringGenerationServiceHelpers
     {
         public delegate IStringGenerationService StringGenerationServiceResolver(GenerationTypes key);
-        
+
         public static IServiceCollection AddStringGenerationServices(this IServiceCollection services) => services
             .AddTransient<WordsStringGenerationService>()
             .AddTransient<RandomStringGenerationService>()
-            .AddTransient(serviceProvider => serviceProvider.GetService<IConfiguration>().GetSection("StringGenerationOptions").Get<StringGenerationServiceOptions>())
+            .AddTransient(serviceProvider => serviceProvider.GetService<IConfiguration>()
+                .GetSection("StringGenerationOptions").Get<StringGenerationServiceOptions>())
             .AddTransient<StringGenerationServiceResolver>(serviceProvider => key =>
             {
                 return key switch

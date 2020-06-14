@@ -1,5 +1,4 @@
-﻿using System;
-using FluentAssertions;
+﻿using FluentAssertions;
 using RandomData.Api.Services.StringServices.Enums;
 using RandomData.Api.Services.StringServices.Extensions;
 using Xunit;
@@ -20,7 +19,7 @@ namespace RandomData.Api.Tests.Services.StringServices
         {
             input.FormatTo(format).Should().Be(output);
         }
-        
+
         [Theory]
         [InlineData("", "")]
         [InlineData(" ", "")]
@@ -59,7 +58,7 @@ namespace RandomData.Api.Tests.Services.StringServices
         {
             input.ToSnakeCase().Should().Be(output);
         }
-        
+
         [Theory]
         [InlineData("", "")]
         [InlineData(" ", "")]

@@ -14,7 +14,7 @@ namespace RandomData.Api.Tests.Services.StringServices
         {
             input.EncodeTo(encoding).Should().Be(output);
         }
-        
+
         [Theory]
         [InlineData("", "")]
         [InlineData(" ", "IA==")]

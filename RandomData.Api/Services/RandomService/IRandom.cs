@@ -7,8 +7,8 @@ namespace RandomData.Api.Services.RandomService
         int Next();
         int Next(int max);
         int Next(int min, int max);
-        void NextBytes(Byte[] bytes);
-        void NextBytes(Span<Byte> bytes);
+        void NextBytes(byte[] bytes);
+        void NextBytes(Span<byte> bytes);
         double NextDouble();
     }
 }
