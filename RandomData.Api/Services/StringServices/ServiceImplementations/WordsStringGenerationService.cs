@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using Microsoft.Extensions.Configuration;
+using RandomData.Api.Services.FileReaderService;
 using RandomData.Api.Services.StringServices.Enums;
 using RandomData.Api.Services.StringServices.Exceptions;
 using RandomData.Api.Services.StringServices.Extensions;
@@ -15,25 +16,14 @@ namespace RandomData.Api.Services.StringServices.ServiceImplementations
         private readonly IEnumerable<string> _words;
         private readonly Random _random = new Random();
 
-        public WordsStringGenerationService(StringGenerationServiceHelpers.StringGenerationServiceOptions options)
+        public WordsStringGenerationService(StringGenerationServiceHelpers.StringGenerationServiceOptions options, IFileReaderService fileReaderService)
         {
             var path = options.WordsDictionaryLocation;
             if (string.IsNullOrEmpty(path))
             {
-                throw new WordsDictionaryLocationUnspecifiedException();
-            }
-            if (!File.Exists(path))
-            {
-                File.WriteAllText(path, "[]");
                 throw new InvalidWordsDictionaryException();
             }
-
-            var content = File.ReadAllText(path);
-            if (string.IsNullOrEmpty(path))
-            {
-                throw new InvalidWordsDictionaryException();
-            }
-
+            var content = fileReaderService.GetFileContent(path);
             try
             {
                 _words = JsonSerializer.Deserialize<string[]>(content);
