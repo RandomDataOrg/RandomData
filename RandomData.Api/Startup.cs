@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using RandomData.Api.Helpers;
 
 namespace RandomData.Api
 {
@@ -17,6 +18,7 @@ namespace RandomData.Api
 
 		public void ConfigureServices(IServiceCollection services)
 		{
+			services.AddSwashbuckle();
 			services.AddControllers();
 		}
 
@@ -28,7 +30,7 @@ namespace RandomData.Api
 			}
 
 			app.UseHttpsRedirection();
-
+			app.UseSwashbuckle();
 			app.UseRouting();
 
 			app.UseAuthorization();
