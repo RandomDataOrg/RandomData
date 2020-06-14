@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 using RandomData.Api.Services.StringServices.Enums;
 
-namespace RandomData.Api.Services.StringServices.ExtensionMethods
+namespace RandomData.Api.Services.StringServices.Extensions
 {
-    public static class StringFormatterExtensionMethods
+    public static class StringFormatterExtensions
     {
         public static string FormatTo(this string input,Format format) => format switch
         {
@@ -68,12 +68,12 @@ namespace RandomData.Api.Services.StringServices.ExtensionMethods
         
         public static string ToSnakeCase(this string input)
         {
-            return input.ToLower().Replace(' ', '_');
+            return input.ToHashSet().SetEquals(new []{' '}) ? string.Empty : input.ToLower().Replace(' ', '_');
         }
 
         public static string ToKebabCase(this string input)
         {
-            return input.ToLower().Replace(' ', '-');
+            return input.ToHashSet().SetEquals(new []{' '}) ? string.Empty : input.ToLower().Replace(' ', '-');
         }
     }
 }

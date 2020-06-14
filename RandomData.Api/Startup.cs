@@ -1,8 +1,10 @@
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using RandomData.Api.Services.RandomService;
 using RandomData.Api.Services.StringServices;
 using RandomData.Api.Services.StringServices.ServiceImplementations;
 
@@ -19,6 +21,7 @@ namespace RandomData.Api
 
 		public void ConfigureServices(IServiceCollection services)
 		{
+			services.AddRandomService();
 			services.AddStringGenerationServices();
 			services.AddControllers();
 		}

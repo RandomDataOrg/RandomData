@@ -1,9 +1,9 @@
 ﻿using System;
 using RandomData.Api.Services.StringServices.Enums;
 
-namespace RandomData.Api.Services.StringServices.ExtensionMethods
+namespace RandomData.Api.Services.StringServices.Extensions
 {
-    public static class StringEncoderExtensionMethods
+    public static class StringEncoderExtensions
     {
         public static string EncodeTo(this string input, Encoding encoding) => encoding switch
         {

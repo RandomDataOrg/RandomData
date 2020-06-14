@@ -6,7 +6,7 @@ using System.Text.Json;
 using Microsoft.Extensions.Configuration;
 using RandomData.Api.Services.StringServices.Enums;
 using RandomData.Api.Services.StringServices.Exceptions;
-using RandomData.Api.Services.StringServices.ExtensionMethods;
+using RandomData.Api.Services.StringServices.Extensions;
 
 namespace RandomData.Api.Services.StringServices.ServiceImplementations
 {
@@ -14,10 +14,10 @@ namespace RandomData.Api.Services.StringServices.ServiceImplementations
     {
         private readonly IEnumerable<string> _words;
         private readonly Random _random = new Random();
-        
-        public WordsStringGenerationService(IConfiguration configuration)
+
+        public WordsStringGenerationService(StringGenerationServiceHelpers.StringGenerationServiceOptions options)
         {
-            var path = configuration.GetValue<string>("StringGenerationOptions:WordsDictionaryLocation");
+            var path = options.WordsDictionaryLocation;
             if (string.IsNullOrEmpty(path))
             {
                 throw new WordsDictionaryLocationUnspecifiedException();

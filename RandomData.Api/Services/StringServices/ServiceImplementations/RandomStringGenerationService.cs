@@ -1,12 +1,17 @@
-﻿using System;
+﻿using RandomData.Api.Services.RandomService;
 using RandomData.Api.Services.StringServices.Enums;
-using RandomData.Api.Services.StringServices.ExtensionMethods;
+using RandomData.Api.Services.StringServices.Extensions;
 
 namespace RandomData.Api.Services.StringServices.ServiceImplementations
 {
     public class RandomStringGenerationService : IStringGenerationService
     {
-        private readonly Random _random = new Random();
+        private readonly IRandom _random;
+
+        public RandomStringGenerationService(IRandom random)
+        {
+            _random = random;
+        }
 
         public string GenerateRandomString(int minLength = 1, int maxLength = int.MaxValue,
             string allowedCharacters = IStringGenerationService.DefaultAllowedCharacters, Format format = Format.Default,

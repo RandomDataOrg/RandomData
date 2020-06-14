@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using RandomData.Api.Services.StringServices;
 using RandomData.Api.Services.StringServices.Enums;
 
@@ -10,12 +9,10 @@ namespace RandomData.Api.Controllers
     public class StringController : Controller
     {
         private readonly StringGenerationServiceHelpers.StringGenerationServiceResolver _serviceResolver;
-        private readonly IConfiguration _configuration;
 
-        public StringController(StringGenerationServiceHelpers.StringGenerationServiceResolver serviceResolver, IConfiguration configuration)
+        public StringController(StringGenerationServiceHelpers.StringGenerationServiceResolver serviceResolver)
         {
             _serviceResolver = serviceResolver;
-            _configuration = configuration;
         }
 
         /// <summary>
@@ -53,13 +50,8 @@ namespace RandomData.Api.Controllers
         [Route("word")]
         public IActionResult GetRandomWord(int length = -1, int minLength = 1, int maxLength = 100,
             string allowedCharacters = IStringGenerationService.DefaultAllowedCharacters,
-            Format format = Format.Default,
-            Encoding encoding = Encoding.None)
+            Format format = Format.Default, Encoding encoding = Encoding.None)
         {
-            if (!_configuration.GetValue<bool>("StringGenerationOptions:WordsGenerationEnabled"))
-            {
-                return NotFound();
-            }
             var stringGenerationService = _serviceResolver(GenerationTypes.Words);
             return Ok(length == -1 ?
                 stringGenerationService.GenerateRandomString(minLength, maxLength, allowedCharacters, format, encoding) :

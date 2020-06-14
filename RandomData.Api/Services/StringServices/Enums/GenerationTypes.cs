@@ -2,7 +2,6 @@
 
 namespace RandomData.Api.Services.StringServices.Enums
 {
-    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum GenerationTypes
     {
         Random,
