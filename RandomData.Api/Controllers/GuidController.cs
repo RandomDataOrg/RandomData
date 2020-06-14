@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using RandomData.Api.Generators;
 
 namespace RandomData.Api.Controllers
 {
@@ -8,9 +9,16 @@ namespace RandomData.Api.Controllers
 	[Route("/guid")]
 	public class GuidController
 	{
+		private readonly IGuidGenerator _guidGenerator;
+
+		public GuidController(IGuidGenerator guidGenerator)
+		{
+			_guidGenerator = guidGenerator;
+		}
+
 		public async Task<string> GetRandomGuid()
 		{
-			return Guid.NewGuid().ToString();
+			return await _guidGenerator.GetRandom();
 		}
 	}
 }

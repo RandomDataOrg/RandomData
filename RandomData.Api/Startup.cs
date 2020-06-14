@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using RandomData.Api.Generators;
 
 namespace RandomData.Api
 {
@@ -17,6 +18,7 @@ namespace RandomData.Api
 
 		public void ConfigureServices(IServiceCollection services)
 		{
+			services.AddTransient<IGuidGenerator, GuidGenerator>();
 			services.AddControllers();
 		}
 
