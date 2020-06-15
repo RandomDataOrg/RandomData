@@ -45,14 +45,7 @@ namespace RandomData.Api.Services.StringServices.ServiceImplementations
 
         public string GenerateRandomString(int length,
             string allowedCharacters = IStringGenerationService.DefaultAllowedCharacters,
-            Format format = Format.Default, Encoding encoding = Encoding.None)
-        {
-            var filteredWords = _words
-                .Where(x => x.Length == length)
-                .Where(x => x.ToCharArray().SequenceEqual(x.ToCharArray().Where(allowedCharacters.Contains)))
-                .ToArray();
-            if (filteredWords.Length == 0) throw new InvalidWordsDictionaryException();
-            return filteredWords[_random.Next(0, filteredWords.Length)].FormatTo(format).EncodeTo(encoding);
-        }
+            Format format = Format.Default, Encoding encoding = Encoding.None) =>
+                GenerateRandomString(length, length, allowedCharacters, format, encoding);
     }
 }
