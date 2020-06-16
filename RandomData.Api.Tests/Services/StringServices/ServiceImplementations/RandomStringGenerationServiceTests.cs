@@ -2,6 +2,7 @@
 using RandomData.Api.Services.RandomService.ServiceImplementations;
 using RandomData.Api.Services.StringServices.Dto;
 using RandomData.Api.Services.StringServices.Enums;
+using RandomData.Api.Services.StringServices.Exceptions;
 using RandomData.Api.Services.StringServices.ServiceImplementations;
 using Xunit;
 
@@ -114,6 +115,21 @@ namespace RandomData.Api.Tests.Services.StringServices.ServiceImplementations
             
             //assert
             result.Length.Should().BeInRange(1, 5);
+        }
+        
+        [Fact]
+        public void ShouldReturnInvalidParametersException()
+        {
+            //arrange
+            var random = new Random();
+            var service = new RandomStringGenerationService(random);
+            
+            //act/assert
+            service.Invoking(x=>x.GenerateRandomString(new GetRandomStringParameters()
+                {
+                    MinLength = -1
+                }))
+                .Should().ThrowExactly<InvalidParametersException>();
         }
     }
 }

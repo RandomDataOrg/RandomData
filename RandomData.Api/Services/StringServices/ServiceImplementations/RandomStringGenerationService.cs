@@ -1,6 +1,7 @@
 ﻿using RandomData.Api.Services.RandomService;
 using RandomData.Api.Services.StringServices.Dto;
 using RandomData.Api.Services.StringServices.Enums;
+using RandomData.Api.Services.StringServices.Exceptions;
 using RandomData.Api.Services.StringServices.Extensions;
 
 namespace RandomData.Api.Services.StringServices.ServiceImplementations
@@ -20,8 +21,7 @@ namespace RandomData.Api.Services.StringServices.ServiceImplementations
             var validationResult = _validator.Validate(parameters);
             if (!validationResult.IsValid)
             {
-                //TODO Throw exception
-                throw new System.NotImplementedException();
+                throw new InvalidParametersException(validationResult.Errors);
             }
 
             var length = _random.Next(parameters.MinLength, parameters.MaxLength);

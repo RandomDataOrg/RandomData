@@ -37,8 +37,7 @@ namespace RandomData.Api.Services.StringServices.ServiceImplementations
             var validationResult = _validator.Validate(parameters);
             if (!validationResult.IsValid)
             {
-                //TODO Throw exception
-                throw new System.NotImplementedException();
+                throw new InvalidParametersException(validationResult.Errors);
             }
             
             var filteredWords = _words

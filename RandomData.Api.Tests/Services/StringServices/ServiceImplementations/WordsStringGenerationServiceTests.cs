@@ -174,6 +174,21 @@ namespace RandomData.Api.Tests.Services.StringServices.ServiceImplementations
                 .Should().ThrowExactly<InvalidWordsDictionaryException>();
         }
 
+        [Fact]
+        public void ShouldReturnInvalidParametersException()
+        {
+            //arrange
+            var fakeFile = new FakeFileReaderService("[\"Hamburger\"]");
+            var service = new WordsStringGenerationService(GetFakeOptions(), fakeFile);
+            
+            //act/assert
+            service.Invoking(x=>x.GenerateRandomString(new GetRandomStringParameters()
+                {
+                    MinLength = -1
+                }))
+                .Should().ThrowExactly<InvalidParametersException>();
+        }
+
         private StringGenerationServiceHelpers.StringGenerationServiceOptions GetFakeOptions() => 
             new StringGenerationServiceHelpers.StringGenerationServiceOptions 
                 {WordsDictionaryLocation = "fakefile.json"};
