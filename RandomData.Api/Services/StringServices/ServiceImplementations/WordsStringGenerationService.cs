@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using RandomData.Api.Services.FileReaderService;
+using RandomData.Api.Services.StringServices.Dto;
 using RandomData.Api.Services.StringServices.Enums;
 using RandomData.Api.Services.StringServices.Exceptions;
 using RandomData.Api.Services.StringServices.Extensions;
@@ -12,6 +13,7 @@ namespace RandomData.Api.Services.StringServices.ServiceImplementations
     public class WordsStringGenerationService : IStringGenerationService
     {
         private readonly Random _random = new Random();
+        private readonly StringGenerationServiceDtoValidator _validator = new StringGenerationServiceDtoValidator();
         private readonly IEnumerable<string> _words;
 
         public WordsStringGenerationService(StringGenerationServiceHelpers.StringGenerationServiceOptions options,
@@ -30,22 +32,21 @@ namespace RandomData.Api.Services.StringServices.ServiceImplementations
             }
         }
 
-        public string GenerateRandomString(int minLength = 1, int maxLength = int.MaxValue,
-            string allowedCharacters = IStringGenerationService.DefaultAllowedCharacters,
-            Format format = Format.Default,
-            Encoding encoding = Encoding.None)
+        public string GenerateRandomString(StringGenerationServiceDto dto)
         {
+            var validationResult = _validator.Validate(dto);
+            if (!validationResult.IsValid)
+            {
+                //TODO Throw exception
+                throw new System.NotImplementedException();
+            }
+            
             var filteredWords = _words
-                .Where(x => x.Length >= minLength && x.Length <= maxLength)
-                .Where(x => x.ToCharArray().SequenceEqual(x.ToCharArray().Where(allowedCharacters.Contains)))
+                .Where(x => x.Length >= dto.MinLength && x.Length <= dto.MaxLength)
+                .Where(x => x.ToCharArray().SequenceEqual(x.ToCharArray().Where(dto.AllowedCharacters.Contains)))
                 .ToArray();
             if (filteredWords.Length == 0) throw new InvalidWordsDictionaryException();
-            return filteredWords[_random.Next(0, filteredWords.Length)].FormatTo(format).EncodeTo(encoding);
+            return filteredWords[_random.Next(0, filteredWords.Length)].FormatTo(dto.Format).EncodeTo(dto.Encoding);
         }
-
-        public string GenerateRandomString(int length,
-            string allowedCharacters = IStringGenerationService.DefaultAllowedCharacters,
-            Format format = Format.Default, Encoding encoding = Encoding.None) =>
-                GenerateRandomString(length, length, allowedCharacters, format, encoding);
     }
 }

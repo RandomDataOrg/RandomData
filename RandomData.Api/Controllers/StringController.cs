@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RandomData.Api.Services.StringServices;
+using RandomData.Api.Services.StringServices.Dto;
 using RandomData.Api.Services.StringServices.Enums;
 
 namespace RandomData.Api.Controllers
@@ -34,9 +35,9 @@ namespace RandomData.Api.Controllers
         {
             var stringGenerationService = _serviceResolver(GenerationTypes.Random);
             return Ok(length == -1
-                ? stringGenerationService.GenerateRandomString(minLength, maxLength, allowedCharacters, format,
-                    encoding)
-                : stringGenerationService.GenerateRandomString(length, allowedCharacters, format, encoding));
+                ? stringGenerationService.GenerateRandomString(new StringGenerationServiceDto(minLength, maxLength, allowedCharacters, format,
+                    encoding))
+                : stringGenerationService.GenerateRandomString(new StringGenerationServiceDto(length, allowedCharacters, format, encoding)));
         }
 
         /// <summary>
@@ -56,9 +57,9 @@ namespace RandomData.Api.Controllers
         {
             var stringGenerationService = _serviceResolver(GenerationTypes.Words);
             return Ok(length == -1
-                ? stringGenerationService.GenerateRandomString(minLength, maxLength, allowedCharacters, format,
-                    encoding)
-                : stringGenerationService.GenerateRandomString(length, allowedCharacters, format, encoding));
+                ? stringGenerationService.GenerateRandomString(new StringGenerationServiceDto(minLength, maxLength, allowedCharacters, format,
+                    encoding))
+                : stringGenerationService.GenerateRandomString(new StringGenerationServiceDto(length, allowedCharacters, format, encoding)));
         }
     }
 }

@@ -3,6 +3,7 @@ using FluentAssertions;
 using Newtonsoft.Json;
 using RandomData.Api.Services.FileReaderService.ServiceImplementations;
 using RandomData.Api.Services.StringServices;
+using RandomData.Api.Services.StringServices.Dto;
 using RandomData.Api.Services.StringServices.Enums;
 using RandomData.Api.Services.StringServices.Exceptions;
 using RandomData.Api.Services.StringServices.ServiceImplementations;
@@ -27,7 +28,7 @@ namespace RandomData.Api.Tests.Services.StringServices.ServiceImplementations
             var service = new WordsStringGenerationService(GetFakeOptions(), fakeFile);
             
             //act
-            var result = service.GenerateRandomString(format: format);
+            var result = service.GenerateRandomString(new StringGenerationServiceDto(format: format));
             
             //assert
             result.Should().Be(expectedOutput);
@@ -43,7 +44,7 @@ namespace RandomData.Api.Tests.Services.StringServices.ServiceImplementations
             var service = new WordsStringGenerationService(GetFakeOptions(), fakeFile);
             
             //act
-            var result = service.GenerateRandomString(encoding: encoding);
+            var result = service.GenerateRandomString(new StringGenerationServiceDto(encoding: encoding));
             
             //assert
             result.Should().Be(expectedOutput);
@@ -58,8 +59,8 @@ namespace RandomData.Api.Tests.Services.StringServices.ServiceImplementations
             var service = new WordsStringGenerationService(GetFakeOptions(), fakeFile);
             
             //act
-            var result = service.GenerateRandomString(allowedCharacters: "Helo Wrd", length: 11, format: Format.Camel,
-                encoding: Encoding.Base64);
+            var result = service.GenerateRandomString(new StringGenerationServiceDto(allowedCharacters: "Helo Wrd", length: 11, format: Format.Camel,
+                encoding: Encoding.Base64));
             
             //assert
             result.Should().Be(expectedOutput);
@@ -78,7 +79,7 @@ namespace RandomData.Api.Tests.Services.StringServices.ServiceImplementations
             var service = new WordsStringGenerationService(GetFakeOptions(), fakeFile);
             
             //act
-            var result = service.GenerateRandomString(length: 8);
+            var result = service.GenerateRandomString(new StringGenerationServiceDto(length: 8));
             
             //assert
             result.Should().Be("Computer");
@@ -99,7 +100,7 @@ namespace RandomData.Api.Tests.Services.StringServices.ServiceImplementations
             var service = new WordsStringGenerationService(GetFakeOptions(), fakeFile);
             
             //act
-            var result = service.GenerateRandomString(6, 7);
+            var result = service.GenerateRandomString(new StringGenerationServiceDto(6, 7));
             
             //assert
             result.Should().BeOneOf("Discord", "Canary");
@@ -145,7 +146,7 @@ namespace RandomData.Api.Tests.Services.StringServices.ServiceImplementations
             var service = new WordsStringGenerationService(GetFakeOptions(), fakeFile);
             
             //act/assert
-            service.Invoking(x=>x.GenerateRandomString(length:1))
+            service.Invoking(x=>x.GenerateRandomString(new StringGenerationServiceDto(length: 1)))
                 .Should().ThrowExactly<InvalidWordsDictionaryException>();
         }
 

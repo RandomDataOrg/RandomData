@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using RandomData.Api.Services.RandomService.ServiceImplementations;
+using RandomData.Api.Services.StringServices.Dto;
 using RandomData.Api.Services.StringServices.Enums;
 using RandomData.Api.Services.StringServices.ServiceImplementations;
 using Xunit;
@@ -19,11 +20,11 @@ namespace RandomData.Api.Tests.Services.StringServices.ServiceImplementations
         public void FormatPropertyTest(Format format, string expectedOutput)
         {
             //arrange
-            var random = new FakeRandom(new[] {0, 1, 2, 2, 3, 4, 5, 3, 6, 2, 7});
+            var random = new FakeRandom(new[] {11, 0, 1, 2, 2, 3, 4, 5, 3, 6, 2, 7});
             var service = new RandomStringGenerationService(random);
             
             //act
-            var result = service.GenerateRandomString(allowedCharacters: "Helo Wrd", length: 11, format: format);
+            var result = service.GenerateRandomString(new StringGenerationServiceDto(allowedCharacters: "Helo Wrd", length: 11, format: format));
             
             //assert
             result.Should().Be(expectedOutput);
@@ -35,11 +36,11 @@ namespace RandomData.Api.Tests.Services.StringServices.ServiceImplementations
         public void EncodingPropertyTest(Encoding encoding, string expectedOutput)
         {
             //arrange
-            var random = new FakeRandom(new[] {0, 1, 2, 2, 3, 4, 5, 3, 6, 2, 7});
+            var random = new FakeRandom(new[] {11, 0, 1, 2, 2, 3, 4, 5, 3, 6, 2, 7});
             var service = new RandomStringGenerationService(random);
             
             //act
-            var result = service.GenerateRandomString(allowedCharacters: "Helo Wrd", length: 11, encoding: encoding);
+            var result = service.GenerateRandomString(new StringGenerationServiceDto(allowedCharacters: "Helo Wrd", length: 11, encoding: encoding));
                 
             //assert
             result.Should().Be(expectedOutput);
@@ -50,12 +51,12 @@ namespace RandomData.Api.Tests.Services.StringServices.ServiceImplementations
         {
             //arrange
             const string expectedOutput = "aGVsbG9Xb3JsZA==";
-            var random = new FakeRandom(new[] {0, 1, 2, 2, 3, 4, 5, 3, 6, 2, 7});
+            var random = new FakeRandom(new[] {11, 0, 1, 2, 2, 3, 4, 5, 3, 6, 2, 7});
             var service = new RandomStringGenerationService(random);
             
             //act
-            var result = service.GenerateRandomString(allowedCharacters: "Helo Wrd", length: 11, format: Format.Camel,
-                    encoding: Encoding.Base64);
+            var result = service.GenerateRandomString(new StringGenerationServiceDto(allowedCharacters: "Helo Wrd", length: 11, format: Format.Camel,
+                    encoding: Encoding.Base64));
             
             //assert
             result.Should().Be(expectedOutput);
@@ -69,7 +70,7 @@ namespace RandomData.Api.Tests.Services.StringServices.ServiceImplementations
             var service = new RandomStringGenerationService(random);
             
             //act
-            var result = service.GenerateRandomString(length: 5);
+            var result = service.GenerateRandomString(new StringGenerationServiceDto(length: 5));
             
             //assert
             result.Length.Should().Be(5);
@@ -83,7 +84,7 @@ namespace RandomData.Api.Tests.Services.StringServices.ServiceImplementations
             var service = new RandomStringGenerationService(random);
             
             //act
-            var result = service.GenerateRandomString(1, 5);
+            var result = service.GenerateRandomString(new StringGenerationServiceDto(1, 5));
             
             //assert
             result.Length.Should().BeInRange(1, 5);

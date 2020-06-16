@@ -1,4 +1,5 @@
-﻿using RandomData.Api.Services.StringServices.Enums;
+﻿using RandomData.Api.Services.StringServices.Dto;
+using RandomData.Api.Services.StringServices.Enums;
 
 namespace RandomData.Api.Services.StringServices
 {
@@ -7,12 +8,6 @@ namespace RandomData.Api.Services.StringServices
         const string DefaultAllowedCharacters =
             " !\"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
 
-        string GenerateRandomString(int minLength = 1, int maxLength = int.MaxValue,
-            string allowedCharacters = DefaultAllowedCharacters, Format format = Format.Default,
-            Encoding encoding = Encoding.None);
-
-        string GenerateRandomString(int length, string allowedCharacters = DefaultAllowedCharacters,
-            Format format = Format.Default,
-            Encoding encoding = Encoding.None);
+        string GenerateRandomString(StringGenerationServiceDto dto);
     }
 }
