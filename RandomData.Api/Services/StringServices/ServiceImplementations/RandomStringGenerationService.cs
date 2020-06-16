@@ -15,25 +15,25 @@ namespace RandomData.Api.Services.StringServices.ServiceImplementations
             _random = random;
         }
 
-        public string GenerateRandomString(StringGenerationServiceDto dto)
+        public string GenerateRandomString(GetRandomStringParameters parameters)
         {
-            var validationResult = _validator.Validate(dto);
+            var validationResult = _validator.Validate(parameters);
             if (!validationResult.IsValid)
             {
                 //TODO Throw exception
                 throw new System.NotImplementedException();
             }
 
-            var length = _random.Next(dto.MinLength, dto.MaxLength);
+            var length = _random.Next(parameters.MinLength, parameters.MaxLength);
             
             var stringChars = new char[length];
             
             for (var i = 0; i < length; i++)
-                stringChars[i] = dto.AllowedCharacters[_random.Next(0, dto.AllowedCharacters.Length)];
+                stringChars[i] = parameters.AllowedCharacters[_random.Next(0, parameters.AllowedCharacters.Length)];
 
             return new string(stringChars)
-                .FormatTo(dto.Format)
-                .EncodeTo(dto.Encoding);
+                .FormatTo(parameters.Format)
+                .EncodeTo(parameters.Encoding);
         }
     }
 }

@@ -8,6 +8,6 @@ namespace RandomData.Api.Services.StringServices
         const string DefaultAllowedCharacters =
             " !\"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
 
-        string GenerateRandomString(StringGenerationServiceDto dto);
+        string GenerateRandomString(GetRandomStringParameters parameters);
     }
 }

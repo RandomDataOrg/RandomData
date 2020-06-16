@@ -32,9 +32,9 @@ namespace RandomData.Api.Services.StringServices.ServiceImplementations
             }
         }
 
-        public string GenerateRandomString(StringGenerationServiceDto dto)
+        public string GenerateRandomString(GetRandomStringParameters parameters)
         {
-            var validationResult = _validator.Validate(dto);
+            var validationResult = _validator.Validate(parameters);
             if (!validationResult.IsValid)
             {
                 //TODO Throw exception
@@ -42,11 +42,11 @@ namespace RandomData.Api.Services.StringServices.ServiceImplementations
             }
             
             var filteredWords = _words
-                .Where(x => x.Length >= dto.MinLength && x.Length <= dto.MaxLength)
-                .Where(x => x.ToCharArray().SequenceEqual(x.ToCharArray().Where(dto.AllowedCharacters.Contains)))
+                .Where(x => x.Length >= parameters.MinLength && x.Length <= parameters.MaxLength)
+                .Where(x => x.ToCharArray().SequenceEqual(x.ToCharArray().Where(parameters.AllowedCharacters.Contains)))
                 .ToArray();
             if (filteredWords.Length == 0) throw new InvalidWordsDictionaryException();
-            return filteredWords[_random.Next(0, filteredWords.Length)].FormatTo(dto.Format).EncodeTo(dto.Encoding);
+            return filteredWords[_random.Next(0, filteredWords.Length)].FormatTo(parameters.Format).EncodeTo(parameters.Encoding);
         }
     }
 }

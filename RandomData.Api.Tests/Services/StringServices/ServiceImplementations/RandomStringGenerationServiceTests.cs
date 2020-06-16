@@ -24,7 +24,13 @@ namespace RandomData.Api.Tests.Services.StringServices.ServiceImplementations
             var service = new RandomStringGenerationService(random);
             
             //act
-            var result = service.GenerateRandomString(new StringGenerationServiceDto(allowedCharacters: "Helo Wrd", length: 11, format: format));
+            var result = service.GenerateRandomString(new GetRandomStringParameters()
+            {
+                MinLength = 11,
+                MaxLength = 11,
+                AllowedCharacters = "Helo Wrd",
+                Format = format
+            });
             
             //assert
             result.Should().Be(expectedOutput);
@@ -40,7 +46,13 @@ namespace RandomData.Api.Tests.Services.StringServices.ServiceImplementations
             var service = new RandomStringGenerationService(random);
             
             //act
-            var result = service.GenerateRandomString(new StringGenerationServiceDto(allowedCharacters: "Helo Wrd", length: 11, encoding: encoding));
+            var result = service.GenerateRandomString(new GetRandomStringParameters()
+            {
+                MinLength = 11,
+                MaxLength = 11,
+                AllowedCharacters = "Helo Wrd",
+                Encoding = encoding
+            });
                 
             //assert
             result.Should().Be(expectedOutput);
@@ -55,8 +67,14 @@ namespace RandomData.Api.Tests.Services.StringServices.ServiceImplementations
             var service = new RandomStringGenerationService(random);
             
             //act
-            var result = service.GenerateRandomString(new StringGenerationServiceDto(allowedCharacters: "Helo Wrd", length: 11, format: Format.Camel,
-                    encoding: Encoding.Base64));
+            var result = service.GenerateRandomString(new GetRandomStringParameters()
+            {
+                MinLength = 11,
+                MaxLength = 11,
+                AllowedCharacters = "Helo Wrd",
+                Format = Format.Camel,
+                Encoding = Encoding.Base64
+            });
             
             //assert
             result.Should().Be(expectedOutput);
@@ -70,7 +88,11 @@ namespace RandomData.Api.Tests.Services.StringServices.ServiceImplementations
             var service = new RandomStringGenerationService(random);
             
             //act
-            var result = service.GenerateRandomString(new StringGenerationServiceDto(length: 5));
+            var result = service.GenerateRandomString(new GetRandomStringParameters()
+            {
+                MinLength = 5,
+                MaxLength = 5
+            });
             
             //assert
             result.Length.Should().Be(5);
@@ -84,7 +106,11 @@ namespace RandomData.Api.Tests.Services.StringServices.ServiceImplementations
             var service = new RandomStringGenerationService(random);
             
             //act
-            var result = service.GenerateRandomString(new StringGenerationServiceDto(1, 5));
+            var result = service.GenerateRandomString(new GetRandomStringParameters()
+            {
+                MinLength = 1,
+                MaxLength = 5
+            });
             
             //assert
             result.Length.Should().BeInRange(1, 5);
