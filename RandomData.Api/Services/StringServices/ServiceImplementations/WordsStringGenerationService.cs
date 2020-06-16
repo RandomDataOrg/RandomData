@@ -18,7 +18,7 @@ namespace RandomData.Api.Services.StringServices.ServiceImplementations
             IFileReaderService fileReaderService)
         {
             var path = options.WordsDictionaryLocation;
-            if (string.IsNullOrEmpty(path)) throw new InvalidWordsDictionaryException();
+            if (string.IsNullOrEmpty(path)) throw new WordsDictionaryLocationUnspecifiedException();
             var content = fileReaderService.GetFileContent(path);
             try
             {

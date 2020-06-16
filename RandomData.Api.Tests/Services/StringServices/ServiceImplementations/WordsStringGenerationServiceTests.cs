@@ -102,18 +102,51 @@ namespace RandomData.Api.Tests.Services.StringServices.ServiceImplementations
             var result = service.GenerateRandomString(6, 7);
             
             //assert
-            result.Should().BeOneOf(new []{"Discord", "Canary"});
+            result.Should().BeOneOf("Discord", "Canary");
         }
 
-        [Fact]
-        public void ConstructorShouldReturnInvalidWordsDictionaryExceptionOnInvalidJson()
+        [Theory]
+        [InlineData((string)null)]
+        [InlineData("")]
+        [InlineData("{}")]
+        [InlineData("[Hamburger]")]
+        public void ConstructorShouldReturnInvalidWordsDictionaryExceptionOnInvalidJson(string content)
         {
             //arrange
-            var fakeFile = new FakeFileReaderService("");
+            var fakeFile = new FakeFileReaderService(content);
             Action a = () => new WordsStringGenerationService(GetFakeOptions(), fakeFile);
             
             //act/assert
             a.Should().ThrowExactly<InvalidWordsDictionaryException>();
+        }
+
+        [Theory]
+        [InlineData((string)null)]
+        [InlineData("")]
+        public void ConstructorShouldReturnWordsDictionaryLocationUnspecifiedExceptionOnInvalidPath(string path)
+        {
+            //arrange
+            var fakeFile = new FakeFileReaderService("[\"Hamburger\"]");
+            var fakeOptions = new StringGenerationServiceHelpers.StringGenerationServiceOptions()
+            {
+                WordsDictionaryLocation = path
+            };
+            Action a = () => new WordsStringGenerationService(fakeOptions, fakeFile);
+            
+            //act/assert
+            a.Should().ThrowExactly<WordsDictionaryLocationUnspecifiedException>();
+        }
+        
+        [Fact]
+        public void ShouldReturnInvalidWordsDictionaryExceptionOnNoWordsInDictionaryWithGivenLength()
+        {
+            //arrange
+            var fakeFile = new FakeFileReaderService("[\"Hamburger\"]");
+            var service = new WordsStringGenerationService(GetFakeOptions(), fakeFile);
+            
+            //act/assert
+            service.Invoking(x=>x.GenerateRandomString(length:1))
+                .Should().ThrowExactly<InvalidWordsDictionaryException>();
         }
 
         private StringGenerationServiceHelpers.StringGenerationServiceOptions GetFakeOptions() => 
