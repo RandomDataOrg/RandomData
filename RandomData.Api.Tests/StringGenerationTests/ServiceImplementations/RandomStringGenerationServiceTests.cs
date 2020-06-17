@@ -1,5 +1,5 @@
 ﻿using FluentAssertions;
-using RandomData.Api.Services.RandomService.ServiceImplementations;
+using RandomData.Api.Services.Random.ServiceImplementations;
 using RandomData.Api.StringGeneration.Dto;
 using RandomData.Api.StringGeneration.Enums;
 using RandomData.Api.StringGeneration.Exceptions;
@@ -26,7 +26,7 @@ namespace RandomData.Api.Tests.StringGenerationTests.ServiceImplementations
             var service = new RandomStringGenerationService(random);
 
             //act
-            var result = service.GenerateRandomString(new GetRandomStringParameters
+            var result = service.GenerateRandomString(new GetStringParameters
             {
                 MinLength = 11,
                 MaxLength = 11,
@@ -48,7 +48,7 @@ namespace RandomData.Api.Tests.StringGenerationTests.ServiceImplementations
             var service = new RandomStringGenerationService(random);
 
             //act
-            var result = service.GenerateRandomString(new GetRandomStringParameters
+            var result = service.GenerateRandomString(new GetStringParameters
             {
                 MinLength = 11,
                 MaxLength = 11,
@@ -69,7 +69,7 @@ namespace RandomData.Api.Tests.StringGenerationTests.ServiceImplementations
             var service = new RandomStringGenerationService(random);
 
             //act
-            var result = service.GenerateRandomString(new GetRandomStringParameters
+            var result = service.GenerateRandomString(new GetStringParameters
             {
                 MinLength = 11,
                 MaxLength = 11,
@@ -90,7 +90,7 @@ namespace RandomData.Api.Tests.StringGenerationTests.ServiceImplementations
             var service = new RandomStringGenerationService(random);
 
             //act
-            var result = service.GenerateRandomString(new GetRandomStringParameters
+            var result = service.GenerateRandomString(new GetStringParameters
             {
                 MinLength = 5,
                 MaxLength = 5
@@ -108,7 +108,7 @@ namespace RandomData.Api.Tests.StringGenerationTests.ServiceImplementations
             var service = new RandomStringGenerationService(random);
 
             //act
-            var result = service.GenerateRandomString(new GetRandomStringParameters
+            var result = service.GenerateRandomString(new GetStringParameters
             {
                 MinLength = 1,
                 MaxLength = 5
@@ -126,7 +126,7 @@ namespace RandomData.Api.Tests.StringGenerationTests.ServiceImplementations
             var service = new RandomStringGenerationService(random);
 
             //act/assert
-            service.Invoking(x => x.GenerateRandomString(new GetRandomStringParameters
+            service.Invoking(x => x.GenerateRandomString(new GetStringParameters
                 {
                     MinLength = -1
                 }))

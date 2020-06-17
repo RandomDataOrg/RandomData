@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RandomData.Api.StringGeneration.Dto;
 using RandomData.Api.StringGeneration.ServiceImplementations;
-using RandomData.Api.StringGeneration.Validations;
+using RandomData.Api.StringGeneration.Validators;
 
 namespace RandomData.Api.StringGeneration.Controllers
 {
@@ -10,10 +10,10 @@ namespace RandomData.Api.StringGeneration.Controllers
     public class WordsStringController : Controller
     {
         private readonly WordsStringGenerationService _stringGenerationService;
-        private readonly StringGenerationDtoValidator _validator;
+        private readonly GetStringParametersValidator _validator;
 
         public WordsStringController(WordsStringGenerationService stringGenerationService,
-            StringGenerationDtoValidator validator)
+            GetStringParametersValidator validator)
         {
             _stringGenerationService = stringGenerationService;
             _validator = validator;
@@ -24,7 +24,7 @@ namespace RandomData.Api.StringGeneration.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("word")]
-        public ActionResult<string> GetRandomWord([FromQuery] GetRandomStringParameters parameters)
+        public ActionResult<string> GetRandomWord([FromQuery] GetStringParameters parameters)
         {
             var validationResult = _validator.Validate(parameters);
             if (validationResult.IsValid)

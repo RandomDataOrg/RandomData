@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
 using RandomData.Api.StringGeneration.Dto;
 
-namespace RandomData.Api.StringGeneration.Validations
+namespace RandomData.Api.StringGeneration.Validators
 {
-    public class StringGenerationDtoValidator : AbstractValidator<GetRandomStringParameters>
+    public class GetStringParametersValidator : AbstractValidator<GetStringParameters>
     {
-        public StringGenerationDtoValidator()
+        public GetStringParametersValidator()
         {
             RuleFor(x => x.MinLength).GreaterThanOrEqualTo(1);
             RuleFor(x => x.MaxLength).LessThanOrEqualTo(int.MaxValue);

@@ -5,7 +5,7 @@ using Xunit;
 
 namespace RandomData.Api.Tests.StringGenerationTests.Extensions
 {
-    public class StringFormatterExtensionMethodsTests
+    public class StringFormattingExtensionMethodsTests
     {
         [Theory]
         [InlineData(Format.Pascal, "aa AA aa", "AaAaAa")]

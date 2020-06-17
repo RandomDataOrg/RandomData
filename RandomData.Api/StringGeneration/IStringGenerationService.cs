@@ -1,9 +1,9 @@
-﻿using RandomData.Api.StringGeneration.Dto;
+﻿﻿using RandomData.Api.StringGeneration.Dto;
 
 namespace RandomData.Api.StringGeneration
 {
     public interface IStringGenerationService
     {
-        string GenerateRandomString(GetRandomStringParameters parameters);
+        string GenerateRandomString(GetStringParameters parameters);
     }
 }

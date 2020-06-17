@@ -3,7 +3,7 @@ using RandomData.Api.StringGeneration.Enums;
 
 namespace RandomData.Api.StringGeneration.Extensions
 {
-    public static class StringFormatterExtensions
+    public static class StringFormattingExtensions
     {
         public static string FormatTo(this string input, Format format)
         {

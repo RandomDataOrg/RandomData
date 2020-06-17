@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RandomData.Api.StringGeneration.ServiceImplementations;
-using RandomData.Api.StringGeneration.Validations;
+using RandomData.Api.StringGeneration.Validators;
 
 namespace RandomData.Api.StringGeneration
 {
@@ -12,7 +12,7 @@ namespace RandomData.Api.StringGeneration
             return services
                 .AddTransient<WordsStringGenerationService>()
                 .AddTransient<RandomStringGenerationService>()
-                .AddTransient<StringGenerationDtoValidator>()
+                .AddTransient<GetStringParametersValidator>()
                 .AddTransient(serviceProvider => serviceProvider.GetService<IConfiguration>()
                     .GetSection("StringGenerationOptions").Get<StringGenerationServiceOptions>());
         }

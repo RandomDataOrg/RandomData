@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using RandomData.Api.Services.FileReaderService;
-using RandomData.Api.Services.RandomService;
+using RandomData.Api.Services.FileReader;
+using RandomData.Api.Services.Random;
 using RandomData.Api.StringGeneration;
 
 namespace RandomData.Api

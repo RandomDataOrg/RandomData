@@ -5,7 +5,7 @@ using Xunit;
 
 namespace RandomData.Api.Tests.StringGenerationTests.Extensions
 {
-    public class StringEncoderExtensionMethodsTests
+    public class StringEncodingExtensionMethodsTests
     {
         [Theory]
         [InlineData(Encoding.Base64, "aAaA", "YUFhQQ==")]

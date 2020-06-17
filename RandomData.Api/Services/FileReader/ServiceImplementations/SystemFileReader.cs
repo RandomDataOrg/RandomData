@@ -1,8 +1,8 @@
 ﻿using System.IO;
 
-namespace RandomData.Api.Services.FileReaderService.ServiceImplementations
+namespace RandomData.Api.Services.FileReader.ServiceImplementations
 {
-    public class SystemFileReaderService : IFileReaderService
+    public class SystemFileReader : IFileReader
     {
         public string GetFileContent(string path)
         {

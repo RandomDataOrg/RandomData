@@ -3,7 +3,7 @@ using RandomData.Api.StringGeneration.Enums;
 
 namespace RandomData.Api.StringGeneration.Dto
 {
-    public class GetRandomStringParameters
+    public class GetStringParameters
     {
         private const string DefaultAllowedCharacters =
             " !\"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";

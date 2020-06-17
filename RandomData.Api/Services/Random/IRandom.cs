@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RandomData.Api.Services.RandomService
+namespace RandomData.Api.Services.Random
 {
     public interface IRandom
     {

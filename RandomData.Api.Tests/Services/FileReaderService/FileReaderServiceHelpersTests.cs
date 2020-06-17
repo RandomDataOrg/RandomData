@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
-using RandomData.Api.Services.FileReaderService;
-using RandomData.Api.Services.FileReaderService.ServiceImplementations;
+using RandomData.Api.Services.FileReader;
+using RandomData.Api.Services.FileReader.ServiceImplementations;
 using Xunit;
 
 namespace RandomData.Api.Tests.Services.FileReaderService
@@ -20,7 +20,7 @@ namespace RandomData.Api.Tests.Services.FileReaderService
                 .BuildServiceProvider();
 
             //assert
-            serviceProvider.GetService<IFileReaderService>().Should().BeOfType<SystemFileReaderService>();
+            serviceProvider.GetService<IFileReader>().Should().BeOfType<SystemFileReader>();
         }
     }
 }

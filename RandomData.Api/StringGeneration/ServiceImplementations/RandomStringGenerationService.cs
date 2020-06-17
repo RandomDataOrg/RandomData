@@ -1,22 +1,22 @@
-﻿using RandomData.Api.Services.RandomService;
+﻿using RandomData.Api.Services.Random;
 using RandomData.Api.StringGeneration.Dto;
 using RandomData.Api.StringGeneration.Exceptions;
 using RandomData.Api.StringGeneration.Extensions;
-using RandomData.Api.StringGeneration.Validations;
+using RandomData.Api.StringGeneration.Validators;
 
 namespace RandomData.Api.StringGeneration.ServiceImplementations
 {
     public class RandomStringGenerationService : IStringGenerationService
     {
         private readonly IRandom _random;
-        private readonly StringGenerationDtoValidator _validator = new StringGenerationDtoValidator();
+        private readonly GetStringParametersValidator _validator = new GetStringParametersValidator();
 
         public RandomStringGenerationService(IRandom random)
         {
             _random = random;
         }
 
-        public string GenerateRandomString(GetRandomStringParameters parameters)
+        public string GenerateRandomString(GetStringParameters parameters)
         {
             var validationResult = _validator.Validate(parameters);
             if (!validationResult.IsValid) throw new InvalidParametersException(validationResult.Errors);

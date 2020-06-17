@@ -1,12 +1,12 @@
-﻿using RandomData.Api.Services.FileReaderService;
+﻿using RandomData.Api.Services.FileReader;
 
 namespace RandomData.Api.Tests.Services.FileReaderService
 {
-    public class FakeFileReaderService : IFileReaderService
+    public class FakeFileReader : IFileReader
     {
         private readonly string _content;
 
-        public FakeFileReaderService(string content)
+        public FakeFileReader(string content)
         {
             _content = content;
         }

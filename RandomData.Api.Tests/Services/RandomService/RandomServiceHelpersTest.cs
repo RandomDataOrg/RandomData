@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
-using RandomData.Api.Services.RandomService;
-using RandomData.Api.Services.RandomService.ServiceImplementations;
+using RandomData.Api.Services.Random;
+using RandomData.Api.Services.Random.ServiceImplementations;
 using Xunit;
 
 namespace RandomData.Api.Tests.Services.RandomService

@@ -8,7 +8,7 @@ using RandomData.Api.StringGeneration.Exceptions;
 using RandomData.Api.StringGeneration.ServiceImplementations;
 using RandomData.Api.Tests.Services.FileReaderService;
 using Xunit;
-using Random = RandomData.Api.Services.RandomService.ServiceImplementations.Random;
+using Random = RandomData.Api.Services.Random.ServiceImplementations.Random;
 
 namespace RandomData.Api.Tests.StringGenerationTests.ServiceImplementations
 {
@@ -25,11 +25,11 @@ namespace RandomData.Api.Tests.StringGenerationTests.ServiceImplementations
         public void FormatPropertyTest(Format format, string expectedOutput)
         {
             //arrange
-            var fakeFile = new FakeFileReaderService("[\"Hello World\"]");
+            var fakeFile = new FakeFileReader("[\"Hello World\"]");
             var service = new WordsStringGenerationService(GetFakeOptions(), fakeFile, new Random());
 
             //act
-            var result = service.GenerateRandomString(new GetRandomStringParameters
+            var result = service.GenerateRandomString(new GetStringParameters
             {
                 Format = format
             });
@@ -44,11 +44,11 @@ namespace RandomData.Api.Tests.StringGenerationTests.ServiceImplementations
         public void EncodingPropertyTest(Encoding encoding, string expectedOutput)
         {
             //arrange
-            var fakeFile = new FakeFileReaderService("[\"Hello World\"]");
+            var fakeFile = new FakeFileReader("[\"Hello World\"]");
             var service = new WordsStringGenerationService(GetFakeOptions(), fakeFile, new Random());
 
             //act
-            var result = service.GenerateRandomString(new GetRandomStringParameters
+            var result = service.GenerateRandomString(new GetStringParameters
             {
                 Encoding = encoding
             });
@@ -65,7 +65,7 @@ namespace RandomData.Api.Tests.StringGenerationTests.ServiceImplementations
         public void ConstructorShouldReturnInvalidWordsDictionaryExceptionOnInvalidJson(string content)
         {
             //arrange
-            var fakeFile = new FakeFileReaderService(content);
+            var fakeFile = new FakeFileReader(content);
             Action a = () => new WordsStringGenerationService(GetFakeOptions(), fakeFile, new Random());
 
             //act/assert
@@ -78,7 +78,7 @@ namespace RandomData.Api.Tests.StringGenerationTests.ServiceImplementations
         public void ConstructorShouldReturnWordsDictionaryLocationUnspecifiedExceptionOnInvalidPath(string path)
         {
             //arrange
-            var fakeFile = new FakeFileReaderService("[\"Hamburger\"]");
+            var fakeFile = new FakeFileReader("[\"Hamburger\"]");
             var fakeOptions = new StringGenerationServiceHelpers.StringGenerationServiceOptions
             {
                 WordsDictionaryLocation = path
@@ -100,11 +100,11 @@ namespace RandomData.Api.Tests.StringGenerationTests.ServiceImplementations
         {
             //arrange
             const string expectedOutput = "aGVsbG9Xb3JsZA==";
-            var fakeFile = new FakeFileReaderService("[\"Hello World\"]");
+            var fakeFile = new FakeFileReader("[\"Hello World\"]");
             var service = new WordsStringGenerationService(GetFakeOptions(), fakeFile, new Random());
 
             //act
-            var result = service.GenerateRandomString(new GetRandomStringParameters
+            var result = service.GenerateRandomString(new GetStringParameters
             {
                 MinLength = 11,
                 MaxLength = 11,
@@ -121,7 +121,7 @@ namespace RandomData.Api.Tests.StringGenerationTests.ServiceImplementations
         public void LengthPropertyTest()
         {
             //arrange
-            var fakeFile = new FakeFileReaderService(JsonConvert.SerializeObject(new[]
+            var fakeFile = new FakeFileReader(JsonConvert.SerializeObject(new[]
             {
                 "Hamburger",
                 "Computer",
@@ -130,7 +130,7 @@ namespace RandomData.Api.Tests.StringGenerationTests.ServiceImplementations
             var service = new WordsStringGenerationService(GetFakeOptions(), fakeFile, new Random());
 
             //act
-            var result = service.GenerateRandomString(new GetRandomStringParameters
+            var result = service.GenerateRandomString(new GetStringParameters
             {
                 MinLength = 8,
                 MaxLength = 8
@@ -144,7 +144,7 @@ namespace RandomData.Api.Tests.StringGenerationTests.ServiceImplementations
         public void MinAndMaxPropertyTest()
         {
             //arrange
-            var fakeFile = new FakeFileReaderService(JsonConvert.SerializeObject(new[]
+            var fakeFile = new FakeFileReader(JsonConvert.SerializeObject(new[]
             {
                 "Hamburger",
                 "Computer",
@@ -155,7 +155,7 @@ namespace RandomData.Api.Tests.StringGenerationTests.ServiceImplementations
             var service = new WordsStringGenerationService(GetFakeOptions(), fakeFile, new Random());
 
             //act
-            var result = service.GenerateRandomString(new GetRandomStringParameters
+            var result = service.GenerateRandomString(new GetStringParameters
             {
                 MinLength = 6,
                 MaxLength = 7
@@ -169,11 +169,11 @@ namespace RandomData.Api.Tests.StringGenerationTests.ServiceImplementations
         public void ShouldReturnInvalidParametersException()
         {
             //arrange
-            var fakeFile = new FakeFileReaderService("[\"Hamburger\"]");
+            var fakeFile = new FakeFileReader("[\"Hamburger\"]");
             var service = new WordsStringGenerationService(GetFakeOptions(), fakeFile, new Random());
 
             //act/assert
-            service.Invoking(x => x.GenerateRandomString(new GetRandomStringParameters
+            service.Invoking(x => x.GenerateRandomString(new GetStringParameters
                 {
                     MinLength = -1
                 }))
@@ -184,11 +184,11 @@ namespace RandomData.Api.Tests.StringGenerationTests.ServiceImplementations
         public void ShouldReturnInvalidWordsDictionaryExceptionOnNoWordsInDictionaryWithGivenLength()
         {
             //arrange
-            var fakeFile = new FakeFileReaderService("[\"Hamburger\"]");
+            var fakeFile = new FakeFileReader("[\"Hamburger\"]");
             var service = new WordsStringGenerationService(GetFakeOptions(), fakeFile, new Random());
 
             //act/assert
-            service.Invoking(x => x.GenerateRandomString(new GetRandomStringParameters
+            service.Invoking(x => x.GenerateRandomString(new GetStringParameters
                 {
                     MinLength = 1,
                     MaxLength = 1

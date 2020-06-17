@@ -3,7 +3,7 @@ using RandomData.Api.StringGeneration.Enums;
 
 namespace RandomData.Api.StringGeneration.Extensions
 {
-    public static class StringEncoderExtensions
+    public static class StringEncodingExtensions
     {
         public static string EncodeTo(this string input, Encoding encoding)
         {

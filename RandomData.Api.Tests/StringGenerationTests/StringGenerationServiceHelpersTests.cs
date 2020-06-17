@@ -2,8 +2,8 @@
 using FluentAssertions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using RandomData.Api.Services.FileReaderService;
-using RandomData.Api.Services.RandomService;
+using RandomData.Api.Services.FileReader;
+using RandomData.Api.Services.Random;
 using RandomData.Api.StringGeneration;
 using RandomData.Api.StringGeneration.ServiceImplementations;
 using RandomData.Api.Tests.Services.FileReaderService;
@@ -29,7 +29,7 @@ namespace RandomData.Api.Tests.StringGenerationTests
 
             //act
             var serviceProvider = serviceCollection
-                .AddSingleton<IFileReaderService>(new FakeFileReaderService("[\"Hamburger\"]"))
+                .AddSingleton<IFileReader>(new FakeFileReader("[\"Hamburger\"]"))
                 .AddRandomService()
                 .AddStringGenerationServices()
                 .AddScoped(_ => configuration)

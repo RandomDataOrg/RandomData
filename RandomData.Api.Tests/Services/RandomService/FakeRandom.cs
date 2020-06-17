@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using RandomData.Api.Services.RandomService;
+using RandomData.Api.Services.Random;
 
 namespace RandomData.Api.Tests.Services.RandomService
 {
