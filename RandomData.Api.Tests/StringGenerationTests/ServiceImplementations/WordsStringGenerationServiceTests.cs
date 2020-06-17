@@ -89,9 +89,11 @@ namespace RandomData.Api.Tests.StringGenerationTests.ServiceImplementations
             a.Should().ThrowExactly<WordsDictionaryLocationUnspecifiedException>();
         }
 
-        private StringGenerationServiceHelpers.StringGenerationServiceOptions GetFakeOptions() =>
-            new StringGenerationServiceHelpers.StringGenerationServiceOptions
+        private StringGenerationServiceHelpers.StringGenerationServiceOptions GetFakeOptions()
+        {
+            return new StringGenerationServiceHelpers.StringGenerationServiceOptions
                 {WordsDictionaryLocation = "fakefile.json"};
+        }
 
         [Fact]
         public void CorrectOrderOfFormattingAndEncodingTest()
