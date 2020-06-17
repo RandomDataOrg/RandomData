@@ -1,11 +1,11 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace RandomData.Api.Services.StringServices.Enums
+namespace RandomData.Api.StringGeneration.Enums
 {
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum Encoding
     {
-        None,
+        Default,
         Base64
     }
 }

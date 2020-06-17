@@ -1,4 +1,6 @@
-﻿namespace RandomData.Api.Services.FileReaderService.ServiceImplementations
+﻿using RandomData.Api.Services.FileReaderService;
+
+namespace RandomData.Api.Tests.Services.FileReaderService
 {
     public class FakeFileReaderService : IFileReaderService
     {

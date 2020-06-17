@@ -13,12 +13,12 @@ namespace RandomData.Api.Tests.Services.FileReaderService
         {
             //arrange
             var serviceCollection = new ServiceCollection();
-            
+
             //act
             var serviceProvider = serviceCollection
                 .AddFileReaderService()
                 .BuildServiceProvider();
-            
+
             //assert
             serviceProvider.GetService<IFileReaderService>().Should().BeOfType<SystemFileReaderService>();
         }

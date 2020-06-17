@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RandomData.Api.Services.FileReaderService;
 using RandomData.Api.Services.RandomService;
-using RandomData.Api.Services.StringServices;
+using RandomData.Api.StringGeneration;
 
 namespace RandomData.Api
 {

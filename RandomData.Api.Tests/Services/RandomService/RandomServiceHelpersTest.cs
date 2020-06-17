@@ -15,10 +15,9 @@ namespace RandomData.Api.Tests.Services.RandomService
             var serviceProvider = new ServiceCollection()
                 .AddRandomService()
                 .BuildServiceProvider();
-            
+
             //act/assert
             serviceProvider.GetService<IRandom>().Should().BeOfType<Random>();
-
         }
     }
 }

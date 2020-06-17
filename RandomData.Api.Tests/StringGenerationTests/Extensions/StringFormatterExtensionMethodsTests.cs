@@ -1,9 +1,9 @@
 ﻿using FluentAssertions;
-using RandomData.Api.Services.StringServices.Enums;
-using RandomData.Api.Services.StringServices.Extensions;
+using RandomData.Api.StringGeneration.Enums;
+using RandomData.Api.StringGeneration.Extensions;
 using Xunit;
 
-namespace RandomData.Api.Tests.Services.StringServices
+namespace RandomData.Api.Tests.StringGenerationTests.Extensions
 {
     public class StringFormatterExtensionMethodsTests
     {

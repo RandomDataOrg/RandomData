@@ -1,7 +1,7 @@
 ﻿using System;
-using RandomData.Api.Services.StringServices.Enums;
+using RandomData.Api.StringGeneration.Enums;
 
-namespace RandomData.Api.Services.StringServices.Extensions
+namespace RandomData.Api.StringGeneration.Extensions
 {
     public static class StringEncoderExtensions
     {

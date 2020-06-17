@@ -5,8 +5,10 @@ namespace RandomData.Api.Services.FileReaderService
 {
     public static class FileReaderServiceHelpers
     {
-        public static IServiceCollection AddFileReaderService(this IServiceCollection serviceCollection) =>
-            serviceCollection
+        public static IServiceCollection AddFileReaderService(this IServiceCollection serviceCollection)
+        {
+            return serviceCollection
                 .AddTransient<IFileReaderService, SystemFileReaderService>();
+        }
     }
 }

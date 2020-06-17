@@ -1,15 +1,15 @@
 ﻿using FluentAssertions;
-using RandomData.Api.Services.StringServices.Enums;
-using RandomData.Api.Services.StringServices.Extensions;
+using RandomData.Api.StringGeneration.Enums;
+using RandomData.Api.StringGeneration.Extensions;
 using Xunit;
 
-namespace RandomData.Api.Tests.Services.StringServices
+namespace RandomData.Api.Tests.StringGenerationTests.Extensions
 {
     public class StringEncoderExtensionMethodsTests
     {
         [Theory]
         [InlineData(Encoding.Base64, "aAaA", "YUFhQQ==")]
-        [InlineData(Encoding.None, "aAaA", "aAaA")]
+        [InlineData(Encoding.Default, "aAaA", "aAaA")]
         public void EncodeToExtensionTests(Encoding encoding, string input, string output)
         {
             input.EncodeTo(encoding).Should().Be(output);
