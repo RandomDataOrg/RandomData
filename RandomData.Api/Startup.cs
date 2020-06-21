@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
 using RandomData.Api.Extensions;
 using RandomData.Api.GuidGenerators;
 
@@ -21,7 +20,7 @@ namespace RandomData.Api
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddGuidGenerator();
-			services.AddSwaggerWithConfig(Configuration.GetSection("SwaggerConfig").Get<OpenApiInfo>());
+			services.AddSwaggerWithConfig(Configuration);
 			services.AddControllers();
 		}
 
@@ -33,7 +32,9 @@ namespace RandomData.Api
 			}
 
 			app.UseHttpsRedirection();
-			app.UseSwaggerWithConfig();
+      
+			app.UseSwaggerWithConfig(Configuration);
+      
 			app.UseRouting();
 
 			app.UseAuthorization();
