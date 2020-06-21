@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RandomData.Api.Extensions;
+using RandomData.Api.GuidGenerators;
 
 namespace RandomData.Api
 {
@@ -18,6 +19,7 @@ namespace RandomData.Api
 
 		public void ConfigureServices(IServiceCollection services)
 		{
+			services.AddGuidGenerator();
 			services.AddSwaggerWithConfig(Configuration);
 			services.AddControllers();
 		}
