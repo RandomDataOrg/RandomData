@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using FluentValidation;
 using RandomData.Api.NumberGenerators.Dto;
 
@@ -12,6 +13,7 @@ namespace RandomData.Api.NumberGenerators.Validator
             RuleFor(x => x.MaxLength).LessThanOrEqualTo(int.MaxValue);
             RuleFor(x => x.MaxLength).GreaterThanOrEqualTo(x => x.MinLength);
             RuleFor(x => x.AllowedDigits).MinimumLength(1);
+            RuleFor(x => x.AllowedDigits).Must(value => value.All(char.IsDigit));
         }
     }
 }
