@@ -10,7 +10,7 @@ namespace RandomData.Api.Tests.StringGenerationTests.Extensions
         [Theory]
         [InlineData(Encoding.Base64, "aAaA", "YUFhQQ==")]
         [InlineData(Encoding.Default, "aAaA", "aAaA")]
-        public void EncodeToExtensionTests(Encoding encoding, string input, string output)
+        public void EncodeToExtension(Encoding encoding, string input, string output)
         {
             input.EncodeTo(encoding).Should().Be(output);
         }
@@ -19,7 +19,7 @@ namespace RandomData.Api.Tests.StringGenerationTests.Extensions
         [InlineData("", "")]
         [InlineData(" ", "IA==")]
         [InlineData("aAaA", "YUFhQQ==")]
-        public void ToBase64ExtensionTests(string input, string output)
+        public void ToBase64Extension(string input, string output)
         {
             input.ToBase64().Should().Be(output);
         }

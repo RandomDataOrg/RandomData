@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.Json;
 using RandomData.Api.Services.FileReader;
 using RandomData.Api.Services.Random;
+using RandomData.Api.StringGeneration.Configuration;
 using RandomData.Api.StringGeneration.Dto;
 using RandomData.Api.StringGeneration.Exceptions;
 using RandomData.Api.StringGeneration.Extensions;
@@ -13,20 +14,21 @@ namespace RandomData.Api.StringGeneration.ServiceImplementations
 {
     public class WordsStringGenerationService : IStringGenerationService
     {
-        private readonly IRandom _random;
-        private readonly GetStringParametersValidator _validator = new GetStringParametersValidator();
-        private readonly IEnumerable<string> _words;
+        private readonly IRandomGenerator _randomGenerator;
+        private readonly GetStringParametersValidator _validator;
+        private readonly ISet<string> _words;
 
-        public WordsStringGenerationService(StringGenerationServiceHelpers.StringGenerationServiceOptions options,
-            IFileReader fileReader, IRandom random)
+        public WordsStringGenerationService(StringGenerationServiceOptions options,
+            IFileReader fileReader, IRandomGenerator randomGenerator, GetStringParametersValidator validator)
         {
-            _random = random;
+            _randomGenerator = randomGenerator;
+            _validator = validator;
             var path = options.WordsDictionaryLocation;
             if (string.IsNullOrEmpty(path)) throw new WordsDictionaryLocationUnspecifiedException();
             var content = fileReader.GetFileContent(path);
             try
             {
-                _words = JsonSerializer.Deserialize<string[]>(content);
+                _words = new HashSet<string>(JsonSerializer.Deserialize<string[]>(content));
             }
             catch (Exception)
             {
@@ -44,7 +46,7 @@ namespace RandomData.Api.StringGeneration.ServiceImplementations
                 .Where(x => x.ToCharArray().SequenceEqual(x.ToCharArray().Where(parameters.AllowedCharacters.Contains)))
                 .ToArray();
             if (filteredWords.Length == 0) throw new InvalidWordsDictionaryException();
-            return filteredWords[_random.Next(0, filteredWords.Length)].FormatTo(parameters.Format)
+            return filteredWords[_randomGenerator.Next(0, filteredWords.Length)].FormatTo(parameters.Format)
                 .EncodeTo(parameters.Encoding);
         }
     }

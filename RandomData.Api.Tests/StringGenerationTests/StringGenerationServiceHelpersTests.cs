@@ -1,12 +1,14 @@
 ﻿using System.IO;
+using System.Text;
 using FluentAssertions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RandomData.Api.Services.FileReader;
 using RandomData.Api.Services.Random;
 using RandomData.Api.StringGeneration;
+using RandomData.Api.StringGeneration.Configuration;
 using RandomData.Api.StringGeneration.ServiceImplementations;
-using RandomData.Api.Tests.Services.FileReaderService;
+using RandomData.Api.Tests.Services.FileReader;
 using Xunit;
 
 namespace RandomData.Api.Tests.StringGenerationTests
@@ -18,7 +20,7 @@ namespace RandomData.Api.Tests.StringGenerationTests
         {
             //arrange
             var serviceCollection = new ServiceCollection();
-            var expectedOptions = new StringGenerationServiceHelpers.StringGenerationServiceOptions
+            var expectedOptions = new StringGenerationServiceOptions
             {
                 WordsDictionaryLocation = "words.json"
             };
@@ -40,7 +42,7 @@ namespace RandomData.Api.Tests.StringGenerationTests
                 .GetService<WordsStringGenerationService>().Should().NotBeNull();
             serviceProvider
                 .GetService<RandomStringGenerationService>().Should().NotBeNull();
-            serviceProvider.GetService<StringGenerationServiceHelpers.StringGenerationServiceOptions>()
+            serviceProvider.GetService<StringGenerationServiceOptions>()
                 .Should().BeEquivalentTo(expectedOptions);
         }
     }
@@ -49,12 +51,7 @@ namespace RandomData.Api.Tests.StringGenerationTests
     {
         internal static Stream ToStream(this string s)
         {
-            var stream = new MemoryStream();
-            var writer = new StreamWriter(stream);
-            writer.Write(s);
-            writer.Flush();
-            stream.Position = 0;
-            return stream;
+            return new MemoryStream(Encoding.Default.GetBytes(s));
         }
     }
 }

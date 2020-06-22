@@ -1,4 +1,5 @@
-﻿using RandomData.Api.Services.Random;
+﻿using System.Linq;
+using RandomData.Api.Services.Random;
 using RandomData.Api.StringGeneration.Dto;
 using RandomData.Api.StringGeneration.Exceptions;
 using RandomData.Api.StringGeneration.Extensions;
@@ -8,12 +9,13 @@ namespace RandomData.Api.StringGeneration.ServiceImplementations
 {
     public class RandomStringGenerationService : IStringGenerationService
     {
-        private readonly IRandom _random;
-        private readonly GetStringParametersValidator _validator = new GetStringParametersValidator();
+        private readonly IRandomGenerator _randomGenerator;
+        private readonly GetStringParametersValidator _validator;
 
-        public RandomStringGenerationService(IRandom random)
+        public RandomStringGenerationService(IRandomGenerator randomGenerator, GetStringParametersValidator validator)
         {
-            _random = random;
+            _randomGenerator = randomGenerator;
+            _validator = validator;
         }
 
         public string GenerateRandomString(GetStringParameters parameters)
@@ -21,16 +23,18 @@ namespace RandomData.Api.StringGeneration.ServiceImplementations
             var validationResult = _validator.Validate(parameters);
             if (!validationResult.IsValid) throw new InvalidParametersException(validationResult.Errors);
 
-            var length = _random.Next(parameters.MinLength, parameters.MaxLength);
+            var length = _randomGenerator.Next(parameters.MinLength, parameters.MaxLength);
 
-            var stringChars = new char[length];
+            var result = new string(Enumerable.Range(0, length).Select(x=>GetRandomChar(parameters.AllowedCharacters)).ToArray());
 
-            for (var i = 0; i < length; i++)
-                stringChars[i] = parameters.AllowedCharacters[_random.Next(0, parameters.AllowedCharacters.Length)];
-
-            return new string(stringChars)
+            return result
                 .FormatTo(parameters.Format)
                 .EncodeTo(parameters.Encoding);
+        }
+
+        private char GetRandomChar(string allowedChars)
+        {
+            return allowedChars[_randomGenerator.Next(0, allowedChars.Length)];
         }
     }
 }

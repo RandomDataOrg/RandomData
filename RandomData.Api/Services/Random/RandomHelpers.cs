@@ -6,7 +6,7 @@ namespace RandomData.Api.Services.Random
     {
         public static IServiceCollection AddRandomService(this IServiceCollection serviceCollection)
         {
-            return serviceCollection.AddTransient<IRandom, Random.ServiceImplementations.Random>();
+            return serviceCollection.AddTransient<IRandomGenerator, Random.ServiceImplementations.RandomGenerator>();
         }
     }
 }

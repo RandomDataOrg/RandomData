@@ -4,12 +4,12 @@ using RandomData.Api.Services.FileReader;
 using RandomData.Api.Services.FileReader.ServiceImplementations;
 using Xunit;
 
-namespace RandomData.Api.Tests.Services.FileReaderService
+namespace RandomData.Api.Tests.Services.FileReader
 {
-    public class FileReaderServiceHelpersTests
+    public class FileReaderHelpersTests
     {
         [Fact]
-        public void IsAddFileReaderWorkingProperly()
+        public void IsAddFileReaderRegisteredCorrectly()
         {
             //arrange
             var serviceCollection = new ServiceCollection();

@@ -15,7 +15,7 @@ namespace RandomData.Api.Tests.StringGenerationTests.Extensions
         [InlineData(Format.Camel, "aa AA aa", "aaAaAa")]
         [InlineData(Format.Snake, "aa AA aa", "aa_aa_aa")]
         [InlineData(Format.Default, "aa AA aa", "aa AA aa")]
-        public void FormatToExtensionTests(Format format, string input, string output)
+        public void FormatToExtension(Format format, string input, string output)
         {
             input.FormatTo(format).Should().Be(output);
         }
@@ -28,7 +28,8 @@ namespace RandomData.Api.Tests.StringGenerationTests.Extensions
         [InlineData("aaaa", "Aaaa")]
         [InlineData("aAaA", "Aaaa")]
         [InlineData("aa AA aa", "AaAaAa")]
-        public void ToPascalCaseExtensionTests(string input, string output)
+        [InlineData("aa   AA", "AaAa")]
+        public void ToPascalCaseExtension(string input, string output)
         {
             input.ToPascalCase().Should().Be(output);
         }
@@ -41,7 +42,8 @@ namespace RandomData.Api.Tests.StringGenerationTests.Extensions
         [InlineData("aaaa", "aaaa")]
         [InlineData("aAaA", "aaaa")]
         [InlineData("aa AA aa", "aaAaAa")]
-        public void ToCamelCaseExtensionTests(string input, string output)
+        [InlineData("aa   AA", "aaAa")]
+        public void ToCamelCaseExtension(string input, string output)
         {
             input.ToCamelCase().Should().Be(output);
         }
@@ -54,7 +56,8 @@ namespace RandomData.Api.Tests.StringGenerationTests.Extensions
         [InlineData("aaaa", "aaaa")]
         [InlineData("aAaA", "aaaa")]
         [InlineData("aa AA aa", "aa_aa_aa")]
-        public void ToSnakeCaseExtensionTests(string input, string output)
+        [InlineData("aa   AA", "aa___aa")]
+        public void ToSnakeCaseExtension(string input, string output)
         {
             input.ToSnakeCase().Should().Be(output);
         }
@@ -67,7 +70,8 @@ namespace RandomData.Api.Tests.StringGenerationTests.Extensions
         [InlineData("aaaa", "aaaa")]
         [InlineData("aAaA", "aaaa")]
         [InlineData("aa AA aa", "aa-aa-aa")]
-        public void ToKebabCaseExtensionTests(string input, string output)
+        [InlineData("aa   AA", "aa---aa")]
+        public void ToKebabCaseExtension(string input, string output)
         {
             input.ToKebabCase().Should().Be(output);
         }

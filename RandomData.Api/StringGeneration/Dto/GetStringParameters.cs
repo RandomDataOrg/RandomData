@@ -9,13 +9,13 @@ namespace RandomData.Api.StringGeneration.Dto
             " !\"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
 
         /// <summary>
-        ///     Minimum length of created string (ignored if length is set); Default value is 1
+        ///     Minimum length of created string; Default value is 1
         /// </summary>
         [FromQuery(Name = "minLength")]
         public int MinLength { get; set; } = 1;
 
         /// <summary>
-        ///     Maximum length of created string (ignored if length is set); Default value is 100
+        ///     Maximum length of created string; Default value is 100
         /// </summary>
         [FromQuery(Name = "maxLength")]
         public int MaxLength { get; set; } = 100;

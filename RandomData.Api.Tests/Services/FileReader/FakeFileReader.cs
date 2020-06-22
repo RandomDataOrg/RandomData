@@ -1,6 +1,6 @@
 ﻿using RandomData.Api.Services.FileReader;
 
-namespace RandomData.Api.Tests.Services.FileReaderService
+namespace RandomData.Api.Tests.Services.FileReader
 {
     public class FakeFileReader : IFileReader
     {

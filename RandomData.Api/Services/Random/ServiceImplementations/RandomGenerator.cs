@@ -2,7 +2,7 @@
 
 namespace RandomData.Api.Services.Random.ServiceImplementations
 {
-    public class Random : IRandom
+    public class RandomGenerator : IRandomGenerator
     {
         private readonly System.Random _random = new System.Random();
 

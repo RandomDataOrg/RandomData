@@ -2,7 +2,7 @@
 
 namespace RandomData.Api.Services.Random
 {
-    public interface IRandom
+    public interface IRandomGenerator
     {
         int Next();
         int Next(int max);
