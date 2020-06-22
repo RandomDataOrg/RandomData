@@ -6,23 +6,21 @@ using RandomData.Api.NumberGenerators.Dto;
 
 namespace RandomData.Api.NumberGenerators.Generators
 {
-    public class NumberGenerator
+    public class NumberGenerator : INumberGenerator
     {
-        private readonly Random _random;
+        [ThreadStatic]
+        private static Random _random;
 
-        public NumberGenerator()
-        {
-            _random = new Random();
-        }
+        private static Random Rng => _random ??= new Random();
 
-        public string GetRandom(NumberParameters parameters)
+        public int GetRandom(NumberParameters parameters)
         {
-            var length = _random.Next(parameters.MinLength, parameters.MaxLength + 1);
+            var length = Rng.Next(parameters.MinLength, parameters.MaxLength + 1);
 
             var result = new string(Enumerable.Repeat(parameters.AllowedDigits, length)
-                .Select(d => d[_random.Next(d.Length)]).ToArray());
+                .Select(d => d[Rng.Next(d.Length)]).ToArray());
 
-            return result;
+            return int.Parse(result);
         }
     }
 }

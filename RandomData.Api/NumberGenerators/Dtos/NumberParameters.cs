@@ -4,7 +4,7 @@ namespace RandomData.Api.NumberGenerators.Dto
 {
     public class NumberParameters
     {
-        private const string DefaultAllowedDigits = "123456789";
+        private const string DefaultAllowedDigits = "1234567890";
 
         [FromQuery(Name = "minLength")] public int MinLength { get; set; } = 1;
 

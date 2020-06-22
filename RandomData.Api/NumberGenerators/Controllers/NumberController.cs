@@ -2,6 +2,7 @@
 using RandomData.Api.NumberGenerators.Dto;
 using RandomData.Api.NumberGenerators.Generators;
 using RandomData.Api.NumberGenerators.Validator;
+using RandomData.Api.NumberGenerators.Validators;
 
 namespace RandomData.Api.NumberGenerators.Controllers
 {
@@ -9,18 +10,18 @@ namespace RandomData.Api.NumberGenerators.Controllers
     [Route("[controller]")]
     public class NumberController : ControllerBase
     {
-        private readonly NumberGenerator _generator;
+        private readonly INumberGenerator _generator;
 
-        private readonly NumberParametersValidator _validator;
+        private readonly INumberParametersValidator _validator;
 
-        public NumberController()
+        public NumberController(INumberGenerator generator, INumberParametersValidator validator)
         {
-            _generator = new NumberGenerator();
-            _validator = new NumberParametersValidator();
+            _generator = generator;
+            _validator = validator;
         }
 
         [HttpGet]
-        public ActionResult<string> GetRandomNumber([FromQuery] NumberParameters parameters)
+        public ActionResult<int> GetRandomNumber([FromQuery] NumberParameters parameters)
         {
             var validationResult = _validator.Validate(parameters);
             if (!validationResult.IsValid)

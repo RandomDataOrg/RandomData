@@ -2,10 +2,11 @@
 using System.Linq;
 using FluentValidation;
 using RandomData.Api.NumberGenerators.Dto;
+using RandomData.Api.NumberGenerators.Validators;
 
 namespace RandomData.Api.NumberGenerators.Validator
 {
-    public class NumberParametersValidator : AbstractValidator<NumberParameters>
+    public class NumberParametersValidator : AbstractValidator<NumberParameters>, INumberParametersValidator
     {
         public NumberParametersValidator()
         {
