@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.Caching.Memory;
 using RandomData.Api.Exceptions;
@@ -35,7 +34,7 @@ namespace RandomData.Api.WordGeneration
                 var content = fileReader.GetFileContent(path);
                 try
                 {
-                    _words = new HashSet<string>(JsonSerializer.Deserialize<string[]>(content));
+                    _words = new HashSet<string>(content.Split(';'));
                     memoryCache.Set(WordsDictionaryMemoryCacheKey, _words, TimeSpan.FromMinutes(5));
                 }
                 catch (Exception)
