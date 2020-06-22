@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace RandomData.Api.StringGeneration.Enums
+namespace RandomData.Api.Extensions.StringManipulation.Enums
 {
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum Encoding

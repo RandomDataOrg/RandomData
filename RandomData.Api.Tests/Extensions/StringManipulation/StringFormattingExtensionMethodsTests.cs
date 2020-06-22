@@ -1,9 +1,9 @@
 ﻿using FluentAssertions;
-using RandomData.Api.StringGeneration.Enums;
-using RandomData.Api.StringGeneration.Extensions;
+using RandomData.Api.Extensions.StringManipulation;
+using RandomData.Api.Extensions.StringManipulation.Enums;
 using Xunit;
 
-namespace RandomData.Api.Tests.StringGenerationTests.Extensions
+namespace RandomData.Api.Tests.Extensions.StringManipulation
 {
     public class StringFormattingExtensionMethodsTests
     {
@@ -21,6 +21,7 @@ namespace RandomData.Api.Tests.StringGenerationTests.Extensions
         }
 
         [Theory]
+        [InlineData((string)null, (string)null)]
         [InlineData("", "")]
         [InlineData(" ", "")]
         [InlineData("  ", "")]
@@ -35,6 +36,7 @@ namespace RandomData.Api.Tests.StringGenerationTests.Extensions
         }
 
         [Theory]
+        [InlineData((string)null, (string)null)]
         [InlineData("", "")]
         [InlineData(" ", "")]
         [InlineData("  ", "")]
@@ -49,6 +51,7 @@ namespace RandomData.Api.Tests.StringGenerationTests.Extensions
         }
 
         [Theory]
+        [InlineData((string)null, (string)null)]
         [InlineData("", "")]
         [InlineData(" ", "")]
         [InlineData("  ", "")]
@@ -63,6 +66,7 @@ namespace RandomData.Api.Tests.StringGenerationTests.Extensions
         }
 
         [Theory]
+        [InlineData((string)null, (string)null)]
         [InlineData("", "")]
         [InlineData(" ", "")]
         [InlineData("  ", "")]

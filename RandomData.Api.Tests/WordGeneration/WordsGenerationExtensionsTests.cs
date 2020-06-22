@@ -1,26 +1,23 @@
 ﻿using System.IO;
-using System.Text;
 using FluentAssertions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RandomData.Api.Services.FileReader;
 using RandomData.Api.Services.Random;
-using RandomData.Api.StringGeneration;
-using RandomData.Api.StringGeneration.Configuration;
-using RandomData.Api.StringGeneration.ServiceImplementations;
 using RandomData.Api.Tests.Services.FileReader;
+using RandomData.Api.WordGeneration;
+using RandomData.Api.WordGeneration.Configuration;
 using Xunit;
 
-namespace RandomData.Api.Tests.StringGenerationTests
+namespace RandomData.Api.Tests.WordGeneration
 {
-    public class StringGenerationServiceHelpersTests
+    public class WordsGenerationExtensionsTests
     {
         [Fact]
-        public void IsAddStringGenerationServicesWorkingProperly()
+        public void DoesAddWordsGenerationServiceWork()
         {
             //arrange
-            var serviceCollection = new ServiceCollection();
-            var expectedOptions = new StringGenerationServiceOptions
+            var expectedOptions = new WordsGenerationOptions
             {
                 WordsDictionaryLocation = "words.json"
             };
@@ -28,31 +25,27 @@ namespace RandomData.Api.Tests.StringGenerationTests
                 .AddJsonStream(
                     "{\"StringGenerationOptions\" : {\"WordsDictionaryLocation\" : \"words.json\"}}".ToStream())
                 .Build();
-
+            
             //act
-            var serviceProvider = serviceCollection
+            var serviceProvider = new ServiceCollection()
                 .AddMemoryCache()
                 .AddSingleton<IFileReader>(new FakeFileReader("[\"Hamburger\"]"))
                 .AddRandomService()
-                .AddStringGenerationServices()
+                .AddWordGenerationService()
                 .AddScoped(_ => configuration)
                 .BuildServiceProvider();
-
+            
             //assert
-            serviceProvider
-                .GetService<WordsStringGenerationService>().Should().NotBeNull();
-            serviceProvider
-                .GetService<RandomStringGenerationService>().Should().NotBeNull();
-            serviceProvider.GetService<StringGenerationServiceOptions>()
-                .Should().BeEquivalentTo(expectedOptions);
+            serviceProvider.GetService<Api.WordGeneration.WordGeneration>().Should().NotBeNull();
+            serviceProvider.GetService<WordsGenerationOptions>().Should().BeEquivalentTo(expectedOptions);
         }
     }
-
+    
     internal static class HelpingExtensions
     {
         internal static Stream ToStream(this string s)
         {
-            return new MemoryStream(Encoding.Default.GetBytes(s));
+            return new MemoryStream(System.Text.Encoding.Default.GetBytes(s));
         }
     }
 }

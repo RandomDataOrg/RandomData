@@ -1,7 +1,7 @@
 ﻿using System;
-using RandomData.Api.StringGeneration.Enums;
+using RandomData.Api.Extensions.StringManipulation.Enums;
 
-namespace RandomData.Api.StringGeneration.Extensions
+namespace RandomData.Api.Extensions.StringManipulation
 {
     public static class StringEncodingExtensions
     {
@@ -16,6 +16,8 @@ namespace RandomData.Api.StringGeneration.Extensions
 
         public static string ToBase64(this string input)
         {
+            if (input == null)
+                return null;
             return Convert.ToBase64String(System.Text.Encoding.Default.GetBytes(input));
         }
     }

@@ -8,6 +8,7 @@ using RandomData.Api.Extensions;
 using RandomData.Api.Services.FileReader;
 using RandomData.Api.Services.Random;
 using RandomData.Api.StringGeneration;
+using RandomData.Api.WordGeneration;
 
 namespace RandomData.Api
 {
@@ -26,7 +27,8 @@ namespace RandomData.Api
 			services.AddSwaggerWithConfig(Configuration.GetSection("SwaggerConfig").Get<OpenApiInfo>());
 			services.AddFileReaderService();
 			services.AddRandomService();
-			services.AddStringGenerationServices();
+			services.AddStringGenerationService();
+			services.AddWordGenerationService();
 			services.AddControllers();
 		}
 

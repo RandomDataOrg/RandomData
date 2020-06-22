@@ -1,6 +1,6 @@
-﻿using System;
+﻿﻿using System;
 
-namespace RandomData.Api.StringGeneration.Exceptions
+namespace RandomData.Api.WordGeneration.Exceptions
 {
     public class InvalidWordsDictionaryException : Exception
     {

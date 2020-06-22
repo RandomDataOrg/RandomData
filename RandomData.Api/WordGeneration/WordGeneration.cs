@@ -4,25 +4,26 @@ using System.Linq;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.Caching.Memory;
+using RandomData.Api.Exceptions;
+using RandomData.Api.Extensions.StringManipulation;
 using RandomData.Api.Services.FileReader;
 using RandomData.Api.Services.Random;
-using RandomData.Api.StringGeneration.Configuration;
-using RandomData.Api.StringGeneration.Dto;
-using RandomData.Api.StringGeneration.Exceptions;
-using RandomData.Api.StringGeneration.Extensions;
-using RandomData.Api.StringGeneration.Validators;
+using RandomData.Api.WordGeneration.Configuration;
+using RandomData.Api.WordGeneration.Dto;
+using RandomData.Api.WordGeneration.Exceptions;
+using RandomData.Api.WordGeneration.Validators;
 
-namespace RandomData.Api.StringGeneration.ServiceImplementations
+namespace RandomData.Api.WordGeneration
 {
-    public class WordsStringGenerationService : IStringGenerationService
+    public class WordGeneration
     {
         private const string WordsDictionaryMemoryCacheKey = "wordsDictionary";
         private readonly IRandomGenerator _randomGenerator;
-        private readonly GetStringParametersValidator _validator;
+        private readonly GetWordParametersValidator _validator;
         private readonly ISet<string> _words;
 
-        public WordsStringGenerationService(StringGenerationServiceOptions options,
-            IFileReader fileReader, IRandomGenerator randomGenerator, GetStringParametersValidator validator, IMemoryCache memoryCache)
+        public WordGeneration(WordsGenerationOptions options,
+            IFileReader fileReader, IRandomGenerator randomGenerator, GetWordParametersValidator validator, IMemoryCache memoryCache)
         {
             _randomGenerator = randomGenerator;
             _validator = validator;
@@ -44,7 +45,7 @@ namespace RandomData.Api.StringGeneration.ServiceImplementations
             }
         }
 
-        public string GenerateRandomString(GetStringParameters parameters)
+        public string GenerateRandomString(GetWordParameters parameters)
         {
             var validationResult = _validator.Validate(parameters);
             if (!validationResult.IsValid) throw new InvalidParametersException(validationResult.Errors);

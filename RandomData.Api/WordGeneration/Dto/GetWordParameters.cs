@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RandomData.Api.Extensions.StringManipulation.Enums;
 
-namespace RandomData.Api.StringGeneration.Dto
+namespace RandomData.Api.WordGeneration.Dto
 {
-    public class GetStringParameters
+    public class GetWordParameters
     {
         private const string DefaultAllowedCharacters =
             " !\"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";

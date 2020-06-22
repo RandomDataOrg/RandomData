@@ -1,16 +1,15 @@
 ﻿using FluentAssertions;
+using RandomData.Api.Exceptions;
+using RandomData.Api.Extensions.StringManipulation.Enums;
 using RandomData.Api.Services.Random.ServiceImplementations;
 using RandomData.Api.StringGeneration.Dto;
-using RandomData.Api.StringGeneration.Enums;
-using RandomData.Api.StringGeneration.Exceptions;
-using RandomData.Api.StringGeneration.ServiceImplementations;
 using RandomData.Api.StringGeneration.Validators;
 using RandomData.Api.Tests.Services.Random;
 using Xunit;
 
-namespace RandomData.Api.Tests.StringGenerationTests.ServiceImplementations
+namespace RandomData.Api.Tests.StringGeneration
 {
-    public class RandomStringGenerationServiceTests
+    public class StringGenerationTests
     {
         [Theory]
         [InlineData(Format.Default, "Hello World")]
@@ -24,7 +23,7 @@ namespace RandomData.Api.Tests.StringGenerationTests.ServiceImplementations
         {
             //arrange
             var random = new FakeRandomGenerator(new[] {11, 0, 1, 2, 2, 3, 4, 5, 3, 6, 2, 7});
-            var service = new RandomStringGenerationService(random, new GetStringParametersValidator());
+            var service = new Api.StringGeneration.StringGeneration(random, new GetStringParametersValidator());
 
             //act
             var result = service.GenerateRandomString(new GetStringParameters
@@ -46,7 +45,7 @@ namespace RandomData.Api.Tests.StringGenerationTests.ServiceImplementations
         {
             //arrange
             var random = new FakeRandomGenerator(new[] {11, 0, 1, 2, 2, 3, 4, 5, 3, 6, 2, 7});
-            var service = new RandomStringGenerationService(random, new GetStringParametersValidator());
+            var service = new Api.StringGeneration.StringGeneration(random, new GetStringParametersValidator());
 
             //act
             var result = service.GenerateRandomString(new GetStringParameters
@@ -67,7 +66,7 @@ namespace RandomData.Api.Tests.StringGenerationTests.ServiceImplementations
             //arrange
             const string expectedOutput = "aGVsbG9Xb3JsZA==";
             var random = new FakeRandomGenerator(new[] {11, 0, 1, 2, 2, 3, 4, 5, 3, 6, 2, 7});
-            var service = new RandomStringGenerationService(random, new GetStringParametersValidator());
+            var service = new Api.StringGeneration.StringGeneration(random, new GetStringParametersValidator());
 
             //act
             var result = service.GenerateRandomString(new GetStringParameters
@@ -88,7 +87,7 @@ namespace RandomData.Api.Tests.StringGenerationTests.ServiceImplementations
         {
             //arrange
             var random = new RandomGenerator();
-            var service = new RandomStringGenerationService(random, new GetStringParametersValidator());
+            var service = new Api.StringGeneration.StringGeneration(random, new GetStringParametersValidator());
 
             //act
             var result = service.GenerateRandomString(new GetStringParameters
@@ -106,7 +105,7 @@ namespace RandomData.Api.Tests.StringGenerationTests.ServiceImplementations
         {
             //arrange
             var random = new RandomGenerator();
-            var service = new RandomStringGenerationService(random, new GetStringParametersValidator());
+            var service = new Api.StringGeneration.StringGeneration(random, new GetStringParametersValidator());
 
             //act
             var result = service.GenerateRandomString(new GetStringParameters
@@ -124,7 +123,7 @@ namespace RandomData.Api.Tests.StringGenerationTests.ServiceImplementations
         {
             //arrange
             var random = new RandomGenerator();
-            var service = new RandomStringGenerationService(random, new GetStringParametersValidator());
+            var service = new Api.StringGeneration.StringGeneration(random, new GetStringParametersValidator());
 
             //act/assert
             service.Invoking(x => x.GenerateRandomString(new GetStringParameters

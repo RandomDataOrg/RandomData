@@ -1,18 +1,18 @@
 ﻿using System.Linq;
+using RandomData.Api.Exceptions;
+using RandomData.Api.Extensions.StringManipulation;
 using RandomData.Api.Services.Random;
 using RandomData.Api.StringGeneration.Dto;
-using RandomData.Api.StringGeneration.Exceptions;
-using RandomData.Api.StringGeneration.Extensions;
 using RandomData.Api.StringGeneration.Validators;
 
-namespace RandomData.Api.StringGeneration.ServiceImplementations
+namespace RandomData.Api.StringGeneration
 {
-    public class RandomStringGenerationService : IStringGenerationService
+    public class StringGeneration
     {
         private readonly IRandomGenerator _randomGenerator;
         private readonly GetStringParametersValidator _validator;
 
-        public RandomStringGenerationService(IRandomGenerator randomGenerator, GetStringParametersValidator validator)
+        public StringGeneration(IRandomGenerator randomGenerator, GetStringParametersValidator validator)
         {
             _randomGenerator = randomGenerator;
             _validator = validator;

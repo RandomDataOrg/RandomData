@@ -1,7 +1,7 @@
 ﻿using System.Linq;
-using RandomData.Api.StringGeneration.Enums;
+using RandomData.Api.Extensions.StringManipulation.Enums;
 
-namespace RandomData.Api.StringGeneration.Extensions
+namespace RandomData.Api.Extensions.StringManipulation
 {
     public static class StringFormattingExtensions
     {
@@ -21,6 +21,8 @@ namespace RandomData.Api.StringGeneration.Extensions
 
         public static string ToPascalCase(this string input)
         {
+            if (input == null)
+                return null;
             var makeUpperCase = true;
             return new string(input
                 .ToCharArray()
@@ -45,6 +47,8 @@ namespace RandomData.Api.StringGeneration.Extensions
 
         public static string ToCamelCase(this string input)
         {
+            if (input == null)
+                return null;
             var makeUpperCase = false;
             return new string(input
                 .ToCharArray()
@@ -69,12 +73,18 @@ namespace RandomData.Api.StringGeneration.Extensions
 
         public static string ToSnakeCase(this string input)
         {
-            return input.ToHashSet().SetEquals(new[] {' '}) ? string.Empty : input.ToLower().Replace(' ', '_');
+            if (input == null)
+                return null;
+            else
+                return string.IsNullOrWhiteSpace(input) ? string.Empty : input.ToLower().Replace(' ', '_');
         }
 
         public static string ToKebabCase(this string input)
         {
-            return input.ToHashSet().SetEquals(new[] {' '}) ? string.Empty : input.ToLower().Replace(' ', '-');
+            if (input == null)
+                return null;
+            else
+                return string.IsNullOrWhiteSpace(input) ? string.Empty : input.ToLower().Replace(' ', '-');
         }
     }
 }

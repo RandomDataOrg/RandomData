@@ -1,33 +1,35 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RandomData.Api.StringGeneration.Dto;
-using RandomData.Api.StringGeneration.ServiceImplementations;
 using RandomData.Api.StringGeneration.Validators;
 
-namespace RandomData.Api.StringGeneration.Controllers
+namespace RandomData.Api.StringGeneration
 {
     [ApiController]
     [Route("/string")]
-    public class RandomStringController : ControllerBase
+    public class StringController : ControllerBase
     {
-        private readonly RandomStringGenerationService _stringGenerationService;
+        private readonly StringGeneration _stringGeneration;
         private readonly GetStringParametersValidator _validator;
 
-        public RandomStringController(RandomStringGenerationService stringGenerationService,
+        public StringController(StringGeneration stringGeneration,
             GetStringParametersValidator validator)
         {
-            _stringGenerationService = stringGenerationService;
+            _stringGeneration = stringGeneration;
             _validator = validator;
         }
 
         /// <summary>
         ///     Returns random string
         /// </summary>
+        /// <response code="200">Ok</response>
+        /// <response code="401">Bad Request</response>
+        [Produces("text/plain")]
         [HttpGet("")]
         public ActionResult<string> GetRandomString([FromQuery] GetStringParameters parameters)
         {
             var validationResult = _validator.Validate(parameters);
             if (validationResult.IsValid)
-                return Ok(_stringGenerationService.GenerateRandomString(parameters));
+                return Ok(_stringGeneration.GenerateRandomString(parameters));
             return BadRequest(validationResult.Errors);
         }
     }
