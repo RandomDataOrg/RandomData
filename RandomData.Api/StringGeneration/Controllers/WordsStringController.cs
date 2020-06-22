@@ -22,7 +22,6 @@ namespace RandomData.Api.StringGeneration.Controllers
         /// <summary>
         ///     Returns random word
         /// </summary>
-        /// <returns></returns>
         [HttpGet("word")]
         public ActionResult<string> GetRandomWord([FromQuery] GetStringParameters parameters)
         {
