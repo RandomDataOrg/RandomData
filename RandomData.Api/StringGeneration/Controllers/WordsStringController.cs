@@ -7,7 +7,7 @@ namespace RandomData.Api.StringGeneration.Controllers
 {
     [ApiController]
     [Route("/string")]
-    public class WordsStringController : Controller
+    public class WordsStringController : ControllerBase
     {
         private readonly WordsStringGenerationService _stringGenerationService;
         private readonly GetStringParametersValidator _validator;
