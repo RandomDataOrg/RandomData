@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RandomData.Api.NumberGenerators.Dto;
+using RandomData.Api.NumberGenerators.Dtos;
 using RandomData.Api.NumberGenerators.Generators;
-using RandomData.Api.NumberGenerators.Validator;
 using RandomData.Api.NumberGenerators.Validators;
 
 namespace RandomData.Api.NumberGenerators.Controllers

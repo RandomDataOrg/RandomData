@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using RandomData.Api.NumberGenerators.Dto;
+using RandomData.Api.NumberGenerators.Dtos;
 
 namespace RandomData.Api.NumberGenerators.Generators
 {

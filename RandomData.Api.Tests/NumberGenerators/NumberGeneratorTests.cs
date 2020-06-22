@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using RandomData.Api.NumberGenerators.Dto;
+﻿using RandomData.Api.NumberGenerators.Dtos;
 using RandomData.Api.NumberGenerators.Generators;
 using Xunit;
 

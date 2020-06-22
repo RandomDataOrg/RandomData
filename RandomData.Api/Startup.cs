@@ -20,9 +20,9 @@ namespace RandomData.Api
 
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddGuidGenerator();
-            services.AddNumberGenerator();
-			services.AddSwaggerWithConfig(Configuration);
+			services.AddGuidGenerator()
+                .AddNumberGenerator();
+            services.AddSwaggerWithConfig(Configuration);
 			services.AddControllers();
 		}
 

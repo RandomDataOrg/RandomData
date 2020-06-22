@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using RandomData.Api.NumberGenerators.Generators;
-using RandomData.Api.NumberGenerators.Validator;
 using RandomData.Api.NumberGenerators.Validators;
 
 namespace RandomData.Api.NumberGenerators.ServicesExtensions

@@ -1,5 +1,5 @@
-﻿using RandomData.Api.NumberGenerators.Dto;
-using RandomData.Api.NumberGenerators.Validator;
+﻿using RandomData.Api.NumberGenerators.Dtos;
+using RandomData.Api.NumberGenerators.Validators;
 using Xunit;
 
 namespace RandomData.Api.Tests.NumberGenerators

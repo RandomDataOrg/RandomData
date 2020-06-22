@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using FluentValidation;
-using RandomData.Api.NumberGenerators.Dto;
+﻿using FluentValidation;
+using RandomData.Api.NumberGenerators.Dtos;
 
 namespace RandomData.Api.NumberGenerators.Validators
 {
