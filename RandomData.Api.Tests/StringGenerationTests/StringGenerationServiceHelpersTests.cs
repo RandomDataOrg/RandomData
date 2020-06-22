@@ -31,6 +31,7 @@ namespace RandomData.Api.Tests.StringGenerationTests
 
             //act
             var serviceProvider = serviceCollection
+                .AddMemoryCache()
                 .AddSingleton<IFileReader>(new FakeFileReader("[\"Hamburger\"]"))
                 .AddRandomService()
                 .AddStringGenerationServices()

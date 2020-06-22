@@ -1,5 +1,6 @@
 ﻿using System;
 using FluentAssertions;
+using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
 using RandomData.Api.Services.Random.ServiceImplementations;
 using RandomData.Api.StringGeneration;
@@ -28,7 +29,7 @@ namespace RandomData.Api.Tests.StringGenerationTests.ServiceImplementations
         {
             //arrange
             var fakeFile = new FakeFileReader("[\"Hello World\"]");
-            var service = new WordsStringGenerationService(GetFakeOptions(), fakeFile, new RandomGenerator(), new GetStringParametersValidator());
+            var service = new WordsStringGenerationService(GetFakeOptions(), fakeFile, new RandomGenerator(), new GetStringParametersValidator(), new MemoryCache(new MemoryCacheOptions()));
 
             //act
             var result = service.GenerateRandomString(new GetStringParameters
@@ -47,7 +48,7 @@ namespace RandomData.Api.Tests.StringGenerationTests.ServiceImplementations
         {
             //arrange
             var fakeFile = new FakeFileReader("[\"Hello World\"]");
-            var service = new WordsStringGenerationService(GetFakeOptions(), fakeFile, new RandomGenerator(), new GetStringParametersValidator());
+            var service = new WordsStringGenerationService(GetFakeOptions(), fakeFile, new RandomGenerator(), new GetStringParametersValidator(), new MemoryCache(new MemoryCacheOptions()));
 
             //act
             var result = service.GenerateRandomString(new GetStringParameters
@@ -68,7 +69,7 @@ namespace RandomData.Api.Tests.StringGenerationTests.ServiceImplementations
         {
             //arrange
             var fakeFile = new FakeFileReader(content);
-            Action a = () => new WordsStringGenerationService(GetFakeOptions(), fakeFile, new RandomGenerator(), new GetStringParametersValidator());
+            Action a = () => new WordsStringGenerationService(GetFakeOptions(), fakeFile, new RandomGenerator(), new GetStringParametersValidator(), new MemoryCache(new MemoryCacheOptions()));
 
             //act/assert
             a.Should().ThrowExactly<InvalidWordsDictionaryException>();
@@ -86,7 +87,7 @@ namespace RandomData.Api.Tests.StringGenerationTests.ServiceImplementations
                 WordsDictionaryLocation = path
             };
             Action constructWordsStringGenerationService = ()
-                => new WordsStringGenerationService(fakeOptions, fakeFile, new RandomGenerator(), new GetStringParametersValidator());
+                => new WordsStringGenerationService(fakeOptions, fakeFile, new RandomGenerator(), new GetStringParametersValidator(), new MemoryCache(new MemoryCacheOptions()));
 
             //act/assert
             constructWordsStringGenerationService.Should().ThrowExactly<WordsDictionaryLocationUnspecifiedException>();
@@ -104,7 +105,7 @@ namespace RandomData.Api.Tests.StringGenerationTests.ServiceImplementations
             //arrange
             const string expectedOutput = "aGVsbG9Xb3JsZA==";
             var fakeFile = new FakeFileReader("[\"Hello World\"]");
-            var service = new WordsStringGenerationService(GetFakeOptions(), fakeFile, new RandomGenerator(), new GetStringParametersValidator());
+            var service = new WordsStringGenerationService(GetFakeOptions(), fakeFile, new RandomGenerator(), new GetStringParametersValidator(), new MemoryCache(new MemoryCacheOptions()));
 
             //act
             var result = service.GenerateRandomString(new GetStringParameters
@@ -130,7 +131,7 @@ namespace RandomData.Api.Tests.StringGenerationTests.ServiceImplementations
                 "Computer",
                 "Discord"
             }));
-            var service = new WordsStringGenerationService(GetFakeOptions(), fakeFile, new RandomGenerator(), new GetStringParametersValidator());
+            var service = new WordsStringGenerationService(GetFakeOptions(), fakeFile, new RandomGenerator(), new GetStringParametersValidator(), new MemoryCache(new MemoryCacheOptions()));
 
             //act
             var result = service.GenerateRandomString(new GetStringParameters
@@ -155,7 +156,7 @@ namespace RandomData.Api.Tests.StringGenerationTests.ServiceImplementations
                 "John",
                 "Canary"
             }));
-            var service = new WordsStringGenerationService(GetFakeOptions(), fakeFile, new RandomGenerator(), new GetStringParametersValidator());
+            var service = new WordsStringGenerationService(GetFakeOptions(), fakeFile, new RandomGenerator(), new GetStringParametersValidator(), new MemoryCache(new MemoryCacheOptions()));
 
             //act
             var result = service.GenerateRandomString(new GetStringParameters
@@ -173,7 +174,7 @@ namespace RandomData.Api.Tests.StringGenerationTests.ServiceImplementations
         {
             //arrange
             var fakeFile = new FakeFileReader("[\"Hamburger\"]");
-            var service = new WordsStringGenerationService(GetFakeOptions(), fakeFile, new RandomGenerator(), new GetStringParametersValidator());
+            var service = new WordsStringGenerationService(GetFakeOptions(), fakeFile, new RandomGenerator(), new GetStringParametersValidator(), new MemoryCache(new MemoryCacheOptions()));
 
             //act/assert
             service.Invoking(x => x.GenerateRandomString(new GetStringParameters
@@ -188,7 +189,7 @@ namespace RandomData.Api.Tests.StringGenerationTests.ServiceImplementations
         {
             //arrange
             var fakeFile = new FakeFileReader("[\"Hamburger\"]");
-            var service = new WordsStringGenerationService(GetFakeOptions(), fakeFile, new RandomGenerator(), new GetStringParametersValidator());
+            var service = new WordsStringGenerationService(GetFakeOptions(), fakeFile, new RandomGenerator(), new GetStringParametersValidator(), new MemoryCache(new MemoryCacheOptions()));
 
             //act/assert
             service.Invoking(x => x.GenerateRandomString(new GetStringParameters

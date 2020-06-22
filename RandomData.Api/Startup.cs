@@ -22,6 +22,7 @@ namespace RandomData.Api
 
 		public void ConfigureServices(IServiceCollection services)
 		{
+			services.AddMemoryCache();
 			services.AddSwaggerWithConfig(Configuration.GetSection("SwaggerConfig").Get<OpenApiInfo>());
 			services.AddFileReaderService();
 			services.AddRandomService();
