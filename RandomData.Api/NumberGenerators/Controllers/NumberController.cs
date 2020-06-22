@@ -6,7 +6,7 @@ namespace RandomData.Api.NumberGenerators.Controllers
     [Route("[controller]")]
     public class NumberController : Controller
     {
-        [System.Web.Http.HttpGet]
+        [HttpGet]
         public ActionResult<string> GetRandomNumber([FromQuery] string parameters)
         {
             return Ok("");
