@@ -1,8 +1,12 @@
+using Hellang.Middleware.ProblemDetails;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using RandomData.Api.DateTimeGenerators;
+using RandomData.Api.DateTimeGenerators.DateGenerators;
+using RandomData.Api.DateTimeGenerators.TimeGenerators;
 using RandomData.Api.Extensions;
 using RandomData.Api.GuidGenerators;
 
@@ -20,6 +24,10 @@ namespace RandomData.Api
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddGuidGenerator();
+			services.AddDateTimeGenerator();
+			services.AddTimeGenerator();
+			services.AddDateGenerator();
+			services.RegisterProblemDetails();
 			services.AddSwaggerWithConfig(Configuration);
 			services.AddControllers();
 		}
@@ -29,6 +37,11 @@ namespace RandomData.Api
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
+			}
+			
+			if(env.IsProduction())
+			{
+				app.UseProblemDetails();
 			}
 
 			app.UseHttpsRedirection();
