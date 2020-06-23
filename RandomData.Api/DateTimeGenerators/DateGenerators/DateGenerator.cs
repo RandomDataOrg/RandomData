@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace RandomData.Api.DateTimeGenerators.DateGenerators
 {
@@ -17,14 +14,12 @@ namespace RandomData.Api.DateTimeGenerators.DateGenerators
         public string Generate(RandomDateParameters parameters)
         {
             var format = GetDateFormat(parameters.Format);
-
             var dateTimeParameters = new RandomDateTimeParameters
             {
                 MinDateTime = parameters.MinDate,
                 MaxDateTime = parameters.MaxDate,
                 Format = format
             };
-
             return _dateTimeGenerator.Generate(dateTimeParameters);
         }
 

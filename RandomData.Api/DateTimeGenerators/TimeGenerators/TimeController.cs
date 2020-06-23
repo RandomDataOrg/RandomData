@@ -14,7 +14,7 @@ namespace RandomData.Api.DateTimeGenerators.TimeGenerators
 		}
 
 		/// <summary>
-		/// Returns random time between min and max dates.
+		/// Returns random time between min and max time.
 		/// </summary>
 		[HttpGet]
 		public IActionResult GetRandomDateTime([FromQuery] RandomTimeParameters request)

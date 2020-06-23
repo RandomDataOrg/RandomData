@@ -46,7 +46,7 @@ namespace RandomData.Api.Tests.DateTimeGenerators.TimeGenerators
         [InlineData("23:59:58", "12:595:59")]
         [InlineData("18:00:000", "18:00:30")]
         [InlineData("14:32:52", "14:422")]
-        public void GenerateWithMinDateGreaterThanMaxDate_ThrowsException(string minTime, string maxTime)
+        public void GenerateWithMinTimeGreaterThanMaxDate_ThrowsException(string minTime, string maxTime)
         {
             //Arrange
             var dateTimeGenerator = new DateTimeGenerator(new FakeRandomGenerator(), new RandomDateTimeParametersValidator());
@@ -56,7 +56,6 @@ namespace RandomData.Api.Tests.DateTimeGenerators.TimeGenerators
                 MinTime = minTime,
                 MaxTime = maxTime
             };
-
 
             //Act
             Func<string> act = () => timeGenerator.Generate(parameters);

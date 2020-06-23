@@ -13,7 +13,6 @@ namespace RandomData.Api.DateTimeGenerators
             _validator = validator;
         }
 
-
         public string Generate(RandomDateTimeParameters parameters)
         {
             var validationResult = _validator.Validate(parameters);
@@ -22,14 +21,11 @@ namespace RandomData.Api.DateTimeGenerators
 
             var min = parameters.MinDateTime ?? new DateTime(1970, 1, 1);
             var max = parameters.MaxDateTime ?? DateTime.Now;
-
             var totalTicks = max.Ticks - min.Ticks;
-
             var randomTimeSpan = GetRandomTimeSpan(totalTicks);
 
             return (new DateTime(min.Ticks) + randomTimeSpan).ToString(parameters.Format);
         }
-
 
         private TimeSpan GetRandomTimeSpan(long totalTimeSpanTicks)
         {

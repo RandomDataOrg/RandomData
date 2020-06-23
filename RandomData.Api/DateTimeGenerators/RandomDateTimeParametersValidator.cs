@@ -14,7 +14,7 @@ namespace RandomData.Api.DateTimeGenerators
         {
             RuleFor(m => m.MaxDateTime)
                 .GreaterThan(m => m.MinDateTime.Value)
-                                .WithMessage("Max datetime must be greater than min datetime.")
+                    .WithMessage("Max datetime must be greater than min datetime.")
                 .When(m => m.MinDateTime.HasValue);
 
             RuleFor(m => m.Format).Must(m => _correctFormats.Contains(m))
