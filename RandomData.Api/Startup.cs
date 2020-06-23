@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RandomData.Api.DateTimeGenerators;
+using RandomData.Api.DateTimeGenerators.DateGenerators;
 using RandomData.Api.DateTimeGenerators.TimeGenerators;
 using RandomData.Api.Extensions;
 using RandomData.Api.GuidGenerators;
@@ -25,6 +26,7 @@ namespace RandomData.Api
 			services.AddGuidGenerator();
 			services.AddDateTimeGenerator();
 			services.AddTimeGenerator();
+			services.AddDateGenerator();
 			services.RegisterProblemDetails();
 			services.AddSwaggerWithConfig(Configuration);
 			services.AddControllers();
