@@ -3,12 +3,18 @@ using RandomData.Api.DateTimeGenerators;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Threading;
 using Xunit;
 
 namespace RandomData.Api.Tests.DateTimeGenerators
 {
     public class DateTimeGeneratorTests
     {
+        public DateTimeGeneratorTests()
+        {
+            CultureInfo.CurrentCulture = new CultureInfo("en-US");
+        }
+
         [Theory]
         [MemberData(nameof(TestDates))]
         public void GenerateWithCorrectParameters_StringWithDate(DateTime minDate, DateTime maxDate, string format, string expected)
@@ -76,11 +82,11 @@ namespace RandomData.Api.Tests.DateTimeGenerators
         {
             return new List<object[]>
             {
-                new object[] {new DateTime(2000,1,1), new DateTime(2005,1,1),  "d",new DateTime(2005,1,1).ToString("d")},
-                new object[] {new DateTime(1997,6,6), new DateTime(2003,12,12),"d",new DateTime(2003,12,12).ToString("d")},
-                new object[] {new DateTime(1900,1,1), new DateTime(2020,6,17), "d",new DateTime(2020,6,17).ToString("d")},
-                new object[] {new DateTime(1000,5,15),new DateTime(2256,10,25),"d",new DateTime(2256,10,25).ToString("d")},
-                new object[] {new DateTime(2154,4,26),new DateTime(3256,12,14),"d",new DateTime(3256,12,14).ToString("d")}
+                new object[] {new DateTime(2000,1,1), new DateTime(2005,1,1),  "d","1/1/2005"},
+                new object[] {new DateTime(1997,6,6), new DateTime(2003,12,12),"d","12/12/2003"},
+                new object[] {new DateTime(1900,1,1), new DateTime(2020,6,17), "d","6/17/2020"},
+                new object[] {new DateTime(1000,5,15),new DateTime(2256,10,25),"d","10/25/2256"},
+                new object[] {new DateTime(2154,4,26),new DateTime(3256,12,14),"d","12/14/3256"}
             };
         }
 
