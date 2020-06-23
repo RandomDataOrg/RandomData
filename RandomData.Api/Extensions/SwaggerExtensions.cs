@@ -33,14 +33,14 @@ namespace RandomData.Api.Extensions
                 });
         }
 
-        private static void AddXmlComments(this SwaggerGenOptions options)
-        {
-            var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-            var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-            options.IncludeXmlComments(xmlPath);
-        }
+		    private static void AddXmlComments(this SwaggerGenOptions options)
+		    {
+			    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+			    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+			    options.IncludeXmlComments(xmlPath);
+		    }
 
-        private static OpenApiInfo GetApiInfo(IConfiguration configuration)
-            => configuration.GetSection("SwaggerConfig").Get<OpenApiInfo>();
-    }
+		    private static OpenApiInfo GetApiInfo(IConfiguration configuration)
+			    => configuration.GetSection("SwaggerConfig").Get<OpenApiInfo>();
+	}
 }

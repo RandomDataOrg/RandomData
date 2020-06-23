@@ -3,12 +3,12 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
 using RandomData.Api.Extensions;
 using RandomData.Api.Services.FileReader;
 using RandomData.Api.Services.Random;
 using RandomData.Api.StringGeneration;
 using RandomData.Api.WordGeneration;
+using RandomData.Api.GuidGenerators;
 
 namespace RandomData.Api
 {
@@ -29,6 +29,7 @@ namespace RandomData.Api
 			services.AddRandomService();
 			services.AddStringGenerationService();
 			services.AddWordGenerationService();
+			services.AddGuidGenerator();
 			services.AddControllers();
 		}
 
