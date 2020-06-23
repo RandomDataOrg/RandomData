@@ -8,6 +8,7 @@ namespace RandomData.Api.DateTimeGenerators
 		{
 			services.AddTransient<DateTimeGenerator>();
 			services.AddTransient<IRandomGenerator, RandomGenerator>();
+			services.AddTransient<RandomDateTimeParametersValidator>();
 
 			return services;
 		}
