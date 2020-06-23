@@ -24,7 +24,7 @@ namespace RandomData.Api
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddMemoryCache();
-			services.AddSwaggerWithConfig(Configuration.GetSection("SwaggerConfig").Get<OpenApiInfo>());
+			services.AddSwaggerWithConfig(Configuration);
 			services.AddFileReaderService();
 			services.AddRandomService();
 			services.AddStringGenerationService();
@@ -41,7 +41,7 @@ namespace RandomData.Api
 
 			app.UseHttpsRedirection();
       
-			app.UseSwaggerWithConfig();
+			app.UseSwaggerWithConfig(Configuration);
       
 			app.UseRouting();
 
