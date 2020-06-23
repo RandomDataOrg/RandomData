@@ -20,8 +20,8 @@ namespace RandomData.Api.DateTimeGenerators.DateGenerators
 
             var dateTimeParameters = new RandomDateTimeParameters
             {
-                MinDateTime = parameters.MinDateTime,
-                MaxDateTime = parameters.MaxDateTime,
+                MinDateTime = parameters.MinDate,
+                MaxDateTime = parameters.MaxDate,
                 Format = format
             };
 
