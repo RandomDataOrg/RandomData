@@ -5,14 +5,20 @@ namespace RandomData.Api.DateTimeGenerators.TimeGenerators
     public class TimeGenerator
     {
         private readonly DateTimeGenerator _dateTimeGenerator;
+        private readonly RandomTimeParametersValidator _validator;
 
-        public TimeGenerator(DateTimeGenerator dateTimeGenerator)
+        public TimeGenerator(DateTimeGenerator dateTimeGenerator, RandomTimeParametersValidator validator)
         {
             _dateTimeGenerator = dateTimeGenerator;
+            _validator = validator;
         }
 
         public string Generate(RandomTimeParameters parameters)
         {
+            var validationResult = _validator.Validate(parameters);
+            if (!validationResult.IsValid)
+                throw new InvalidParameterException(validationResult.Errors);
+
             var min = Convert.ToDateTime(parameters.MinTime);
             var max = Convert.ToDateTime(parameters.MaxTime);
             var format = GetFormatedTime(parameters.Format);
