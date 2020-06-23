@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using RandomData.Api.DateTimeGenerators;
 using RandomData.Api.Extensions;
 using RandomData.Api.GuidGenerators;
 
@@ -20,6 +21,7 @@ namespace RandomData.Api
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddGuidGenerator();
+			services.AddDateTimeGenerator();
 			services.AddSwaggerWithConfig(Configuration);
 			services.AddControllers();
 		}
