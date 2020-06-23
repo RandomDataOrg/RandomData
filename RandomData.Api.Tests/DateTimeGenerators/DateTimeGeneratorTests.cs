@@ -17,7 +17,7 @@ namespace RandomData.Api.Tests.DateTimeGenerators
 
         [Theory]
         [MemberData(nameof(TestDates))]
-        public void GenerateWithCorrectParameters_StringWithDate(DateTime minDate, DateTime maxDate, string format, string expected)
+        public void GenerateWithCorrectParameters_StringWithDateTime(DateTime minDate, DateTime maxDate, string format, string expected)
         {
             //Arrange
             var generator = new DateTimeGenerator(new FakeRandomGenerator(),new RandomDateTimeParametersValidator());
@@ -61,14 +61,14 @@ namespace RandomData.Api.Tests.DateTimeGenerators
 
         [Theory]
         [MemberData(nameof(MinTestDatesGreaterThanMax))]
-        public void GenerateWithMinDateGreaterThanMaxDate_ThrowsException(DateTime minDate, DateTime maxDate)
+        public void GenerateWithMinDateTimeGreaterThanMaxDateTime_ThrowsException(DateTime minDateTime, DateTime maxDateTime)
         {
             //Arrange
             var generator = new DateTimeGenerator(new FakeRandomGenerator(), new RandomDateTimeParametersValidator());
             var parameters = new RandomDateTimeParameters
             {
-                MinDateTime = minDate,
-                MaxDateTime = maxDate,
+                MinDateTime = minDateTime,
+                MaxDateTime = maxDateTime,
             };
 
             //Act
@@ -82,22 +82,22 @@ namespace RandomData.Api.Tests.DateTimeGenerators
         {
             return new List<object[]>
             {
-                new object[] {new DateTime(2000,1,1), new DateTime(2005,1,1),  "d","1/1/2005"},
-                new object[] {new DateTime(1997,6,6), new DateTime(2003,12,12),"d","12/12/2003"},
-                new object[] {new DateTime(1900,1,1), new DateTime(2020,6,17), "d","6/17/2020"},
-                new object[] {new DateTime(1000,5,15),new DateTime(2256,10,25),"d","10/25/2256"},
-                new object[] {new DateTime(2154,4,26),new DateTime(3256,12,14),"d","12/14/3256"}
+                new object[] {new DateTime(2000,1,1,10,20,30), new DateTime(2005,3,1,9,20,0), "g","3/1/2005 9:20 AM"},
+                new object[] {new DateTime(1997,6,6,20,30,50), new DateTime(2003,12,12,2,3,5),"g","12/12/2003 2:03 AM"},
+                new object[] {new DateTime(1900,1,1), new DateTime(2020,6,17), "g","6/17/2020 12:00 AM"},
+                new object[] {new DateTime(1000,5,15,17,45,23),new DateTime(2256,10,25,13,30,30),"G","10/25/2256 1:30:30 PM"},
+                new object[] {new DateTime(2154,4,26,23,59,57),new DateTime(3256,12,14,23,59,59),"G","12/14/3256 11:59:59 PM"}
             };
         }
 
-        public static List<object[]> MinTestDatesGreaterThanMax()
+        public static List<object[]> MinTestDateTimeGreaterThanMax()
         {
             return new List<object[]>
             {
-                new object[] { new DateTime(2005,1,1),  new DateTime(2000,1,1)},
-                new object[] { new DateTime(2003,12,12),new DateTime(1997,6,6)},
+                new object[] { new DateTime(2005,1,1,10,20,30),  new DateTime(2000,1,1,17,45,23) },
+                new object[] { new DateTime(2003,12,12),new DateTime(1997,6,6,17,45,23) },
                 new object[] { new DateTime(2020,6,17), new DateTime(1900,1,1)},
-                new object[] { new DateTime(2256,10,25),new DateTime(1000,5,15)},
+                new object[] { new DateTime(2256,10,25,23,59,57),new DateTime(1000,5,15)},
                 new object[] { new DateTime(3256,12,14),new DateTime(2154,4,26)}
             };
         }
