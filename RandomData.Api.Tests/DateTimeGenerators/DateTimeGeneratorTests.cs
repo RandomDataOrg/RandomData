@@ -23,8 +23,8 @@ namespace RandomData.Api.Tests.DateTimeGenerators
             var generator = new DateTimeGenerator(new FakeRandomGenerator(),new RandomDateTimeParametersValidator());
             var parameters = new RandomDateTimeParameters
             {
-                MinDate = minDate,
-                MaxDate = maxDate,
+                MinDateTime = minDate,
+                MaxDateTime = maxDate,
                 Format = format
             };
 
@@ -67,8 +67,8 @@ namespace RandomData.Api.Tests.DateTimeGenerators
             var generator = new DateTimeGenerator(new FakeRandomGenerator(), new RandomDateTimeParametersValidator());
             var parameters = new RandomDateTimeParameters
             {
-                MinDate = minDate,
-                MaxDate = maxDate,
+                MinDateTime = minDate,
+                MaxDateTime = maxDate,
             };
 
             //Act

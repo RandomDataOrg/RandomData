@@ -20,8 +20,8 @@ namespace RandomData.Api.DateTimeGenerators
             if (!validationResult.IsValid)
                 throw new InvalidParameterException(validationResult.Errors);
 
-            var min = parameters.MinDate ?? new DateTime(1970, 1, 1);
-            var max = parameters.MaxDate ?? DateTime.Now;
+            var min = parameters.MinDateTime ?? new DateTime(1970, 1, 1);
+            var max = parameters.MaxDateTime ?? DateTime.Now;
 
             var totalTicks = max.Ticks - min.Ticks;
 

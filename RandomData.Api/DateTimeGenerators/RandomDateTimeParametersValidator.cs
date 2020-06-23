@@ -12,10 +12,10 @@ namespace RandomData.Api.DateTimeGenerators
 
         public RandomDateTimeParametersValidator()
         {
-            RuleFor(m => m.MaxDate)
-                .GreaterThan(m => m.MinDate.Value)
-                                .WithMessage("Max date must be greater than min date.")
-                .When(m => m.MinDate.HasValue);
+            RuleFor(m => m.MaxDateTime)
+                .GreaterThan(m => m.MinDateTime.Value)
+                                .WithMessage("Max datetime must be greater than min datetime.")
+                .When(m => m.MinDateTime.HasValue);
 
             RuleFor(m => m.Format).Must(m => _correctFormats.Contains(m))
                 .WithMessage(m => $"Format '{m.Format}' is not supported.");
