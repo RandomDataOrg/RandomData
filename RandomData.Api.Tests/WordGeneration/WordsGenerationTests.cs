@@ -27,7 +27,7 @@ namespace RandomData.Api.Tests.WordGeneration
         public void FormatProperty(Format format, string expectedOutput)
         {
             //arrange
-            var fakeFile = new FakeFileReader("[\"Hello World\"]");
+            var fakeFile = new FakeFileReader("Hello World");
             var service = new Api.WordGeneration.WordGeneration(GetFakeOptions(), fakeFile, new RandomGenerator(), new GetWordParametersValidator(), new MemoryCache(new MemoryCacheOptions()));
 
             //act
@@ -46,7 +46,7 @@ namespace RandomData.Api.Tests.WordGeneration
         public void EncodingProperty(Encoding encoding, string expectedOutput)
         {
             //arrange
-            var fakeFile = new FakeFileReader("[\"Hello World\"]");
+            var fakeFile = new FakeFileReader("Hello World");
             var service = new Api.WordGeneration.WordGeneration(GetFakeOptions(), fakeFile, new RandomGenerator(), new GetWordParametersValidator(), new MemoryCache(new MemoryCacheOptions()));
 
             //act
@@ -58,16 +58,12 @@ namespace RandomData.Api.Tests.WordGeneration
             //assert
             result.Should().Be(expectedOutput);
         }
-
-        [Theory]
-        [InlineData((string) null)]
-        [InlineData("")]
-        [InlineData("{}")]
-        [InlineData("[Hamburger]")]
-        public void ConstructorShouldReturnInvalidWordsDictionaryExceptionOnInvalidJson(string content)
+        
+        [Fact]
+        public void ConstructorShouldReturnInvalidWordsDictionaryExceptionOnInvalidList()
         {
             //arrange
-            var fakeFile = new FakeFileReader(content);
+            var fakeFile = new FakeFileReader(null);
             Action a = () => new Api.WordGeneration.WordGeneration(GetFakeOptions(), fakeFile, new RandomGenerator(), new GetWordParametersValidator(), new MemoryCache(new MemoryCacheOptions()));
 
             //act/assert
@@ -80,7 +76,7 @@ namespace RandomData.Api.Tests.WordGeneration
         public void ConstructorShouldReturnWordsDictionaryLocationUnspecifiedExceptionOnInvalidPath(string path)
         {
             //arrange
-            var fakeFile = new FakeFileReader("[\"Hamburger\"]");
+            var fakeFile = new FakeFileReader("Hamburger");
             var fakeOptions = new WordsGenerationOptions
             {
                 WordsDictionaryLocation = path
@@ -95,7 +91,7 @@ namespace RandomData.Api.Tests.WordGeneration
         private WordsGenerationOptions GetFakeOptions()
         {
             return new WordsGenerationOptions
-                {WordsDictionaryLocation = "fakefile.json"};
+                {WordsDictionaryLocation = "fakefile.txt"};
         }
 
         [Fact]
@@ -103,7 +99,7 @@ namespace RandomData.Api.Tests.WordGeneration
         {
             //arrange
             const string expectedOutput = "aGVsbG9Xb3JsZA==";
-            var fakeFile = new FakeFileReader("[\"Hello World\"]");
+            var fakeFile = new FakeFileReader("Hello World");
             var service = new Api.WordGeneration.WordGeneration(GetFakeOptions(), fakeFile, new RandomGenerator(), new GetWordParametersValidator(), new MemoryCache(new MemoryCacheOptions()));
 
             //act
@@ -124,7 +120,7 @@ namespace RandomData.Api.Tests.WordGeneration
         public void LengthProperty()
         {
             //arrange
-            var fakeFile = new FakeFileReader(JsonConvert.SerializeObject(new[]
+            var fakeFile = new FakeFileReader(string.Join(';', new[]
             {
                 "Hamburger",
                 "Computer",
@@ -147,7 +143,7 @@ namespace RandomData.Api.Tests.WordGeneration
         public void MinAndMaxProperty()
         {
             //arrange
-            var fakeFile = new FakeFileReader(JsonConvert.SerializeObject(new[]
+            var fakeFile = new FakeFileReader(string.Join(';',new[]
             {
                 "Hamburger",
                 "Computer",
@@ -172,7 +168,7 @@ namespace RandomData.Api.Tests.WordGeneration
         public void ShouldReturnInvalidParametersException()
         {
             //arrange
-            var fakeFile = new FakeFileReader("[\"Hamburger\"]");
+            var fakeFile = new FakeFileReader("Hamburger");
             var service = new Api.WordGeneration.WordGeneration(GetFakeOptions(), fakeFile, new RandomGenerator(), new GetWordParametersValidator(), new MemoryCache(new MemoryCacheOptions()));
 
             //act/assert
@@ -187,7 +183,7 @@ namespace RandomData.Api.Tests.WordGeneration
         public void ShouldReturnInvalidWordsDictionaryExceptionOnNoWordsInDictionaryWithGivenLength()
         {
             //arrange
-            var fakeFile = new FakeFileReader("[\"Hamburger\"]");
+            var fakeFile = new FakeFileReader("Hamburger");
             var service = new Api.WordGeneration.WordGeneration(GetFakeOptions(), fakeFile, new RandomGenerator(), new GetWordParametersValidator(), new MemoryCache(new MemoryCacheOptions()));
 
             //act/assert
