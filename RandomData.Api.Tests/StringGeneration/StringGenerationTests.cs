@@ -1,6 +1,8 @@
-﻿using FluentAssertions;
+﻿using System;
+using FluentAssertions;
 using RandomData.Api.Exceptions;
 using RandomData.Api.Extensions.StringManipulation.Enums;
+using RandomData.Api.Services.Random;
 using RandomData.Api.Services.Random.ServiceImplementations;
 using RandomData.Api.StringGeneration.Dto;
 using RandomData.Api.StringGeneration.Validators;
@@ -23,7 +25,7 @@ namespace RandomData.Api.Tests.StringGeneration
         {
             //arrange
             var random = new FakeRandomGenerator(new[] {11, 0, 1, 2, 2, 3, 4, 5, 3, 6, 2, 7});
-            var service = new Api.StringGeneration.StringGeneration(random, new GetStringParametersValidator());
+            var service = GetStringGenerationService(random);
 
             //act
             var result = service.GenerateRandomString(new GetStringParameters
@@ -45,7 +47,7 @@ namespace RandomData.Api.Tests.StringGeneration
         {
             //arrange
             var random = new FakeRandomGenerator(new[] {11, 0, 1, 2, 2, 3, 4, 5, 3, 6, 2, 7});
-            var service = new Api.StringGeneration.StringGeneration(random, new GetStringParametersValidator());
+            var service = GetStringGenerationService(random);
 
             //act
             var result = service.GenerateRandomString(new GetStringParameters
@@ -66,7 +68,7 @@ namespace RandomData.Api.Tests.StringGeneration
             //arrange
             const string expectedOutput = "aGVsbG9Xb3JsZA==";
             var random = new FakeRandomGenerator(new[] {11, 0, 1, 2, 2, 3, 4, 5, 3, 6, 2, 7});
-            var service = new Api.StringGeneration.StringGeneration(random, new GetStringParametersValidator());
+            var service = GetStringGenerationService(random);
 
             //act
             var result = service.GenerateRandomString(new GetStringParameters
@@ -86,8 +88,7 @@ namespace RandomData.Api.Tests.StringGeneration
         public void LengthProperty()
         {
             //arrange
-            var random = new RandomGenerator();
-            var service = new Api.StringGeneration.StringGeneration(random, new GetStringParametersValidator());
+            var service = GetStringGenerationService();
 
             //act
             var result = service.GenerateRandomString(new GetStringParameters
@@ -104,8 +105,7 @@ namespace RandomData.Api.Tests.StringGeneration
         public void MinAndMaxProperty()
         {
             //arrange
-            var random = new RandomGenerator();
-            var service = new Api.StringGeneration.StringGeneration(random, new GetStringParametersValidator());
+            var service = GetStringGenerationService();
 
             //act
             var result = service.GenerateRandomString(new GetStringParameters
@@ -122,15 +122,25 @@ namespace RandomData.Api.Tests.StringGeneration
         public void ShouldReturnInvalidParametersException()
         {
             //arrange
-            var random = new RandomGenerator();
-            var service = new Api.StringGeneration.StringGeneration(random, new GetStringParametersValidator());
-
-            //act/assert
-            service.Invoking(x => x.GenerateRandomString(new GetStringParameters
+            var service = GetStringGenerationService();
+            Func<Api.StringGeneration.StringGeneration, string> generateRandomString = x =>
+                x.GenerateRandomString(new GetStringParameters
                 {
                     MinLength = -1
-                }))
-                .Should().ThrowExactly<InvalidParametersException>();
+                });
+            
+            //act/assert
+            service
+                .Invoking(generateRandomString)
+                .Should()
+                .ThrowExactly<InvalidParametersException>();
+        }
+
+        private Api.StringGeneration.StringGeneration GetStringGenerationService(
+            IRandomGenerator randomGenerator = null)
+        {
+            return new Api.StringGeneration.StringGeneration(randomGenerator ?? new RandomGenerator(), 
+                new GetStringParametersValidator());
         }
     }
 }

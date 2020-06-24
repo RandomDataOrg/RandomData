@@ -4,6 +4,7 @@ using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
 using RandomData.Api.Exceptions;
 using RandomData.Api.Extensions.StringManipulation.Enums;
+using RandomData.Api.Services.FileReader;
 using RandomData.Api.Services.Random.ServiceImplementations;
 using RandomData.Api.Tests.Services.FileReader;
 using RandomData.Api.WordGeneration.Configuration;
@@ -28,7 +29,7 @@ namespace RandomData.Api.Tests.WordGeneration
         {
             //arrange
             var fakeFile = new FakeFileReader("Hello World");
-            var service = new Api.WordGeneration.WordGeneration(GetFakeOptions(), fakeFile, new RandomGenerator(), new GetWordParametersValidator(), new MemoryCache(new MemoryCacheOptions()));
+            var service = GetWordGenerationService(fakeFile);
 
             //act
             var result = service.GenerateRandomString(new GetWordParameters
@@ -47,7 +48,7 @@ namespace RandomData.Api.Tests.WordGeneration
         {
             //arrange
             var fakeFile = new FakeFileReader("Hello World");
-            var service = new Api.WordGeneration.WordGeneration(GetFakeOptions(), fakeFile, new RandomGenerator(), new GetWordParametersValidator(), new MemoryCache(new MemoryCacheOptions()));
+            var service = GetWordGenerationService(fakeFile);
 
             //act
             var result = service.GenerateRandomString(new GetWordParameters
@@ -64,7 +65,7 @@ namespace RandomData.Api.Tests.WordGeneration
         {
             //arrange
             var fakeFile = new FakeFileReader(null);
-            Action a = () => new Api.WordGeneration.WordGeneration(GetFakeOptions(), fakeFile, new RandomGenerator(), new GetWordParametersValidator(), new MemoryCache(new MemoryCacheOptions()));
+            Action a = () => GetWordGenerationService(fakeFile);
 
             //act/assert
             a.Should().ThrowExactly<InvalidWordsDictionaryException>();
@@ -82,16 +83,10 @@ namespace RandomData.Api.Tests.WordGeneration
                 WordsDictionaryLocation = path
             };
             Action constructWordsStringGenerationService = ()
-                => new Api.WordGeneration.WordGeneration(fakeOptions, fakeFile, new RandomGenerator(), new GetWordParametersValidator(), new MemoryCache(new MemoryCacheOptions()));
+                => GetWordGenerationService(fakeFile, fakeOptions);
 
             //act/assert
             constructWordsStringGenerationService.Should().ThrowExactly<WordsDictionaryLocationUnspecifiedException>();
-        }
-
-        private WordsGenerationOptions GetFakeOptions()
-        {
-            return new WordsGenerationOptions
-                {WordsDictionaryLocation = "fakefile.txt"};
         }
 
         [Fact]
@@ -100,7 +95,7 @@ namespace RandomData.Api.Tests.WordGeneration
             //arrange
             const string expectedOutput = "aGVsbG9Xb3JsZA==";
             var fakeFile = new FakeFileReader("Hello World");
-            var service = new Api.WordGeneration.WordGeneration(GetFakeOptions(), fakeFile, new RandomGenerator(), new GetWordParametersValidator(), new MemoryCache(new MemoryCacheOptions()));
+            var service = GetWordGenerationService(fakeFile);
 
             //act
             var result = service.GenerateRandomString(new GetWordParameters
@@ -126,7 +121,7 @@ namespace RandomData.Api.Tests.WordGeneration
                 "Computer",
                 "Discord"
             }));
-            var service = new Api.WordGeneration.WordGeneration(GetFakeOptions(), fakeFile, new RandomGenerator(), new GetWordParametersValidator(), new MemoryCache(new MemoryCacheOptions()));
+            var service = GetWordGenerationService(fakeFile);
 
             //act
             var result = service.GenerateRandomString(new GetWordParameters
@@ -151,7 +146,7 @@ namespace RandomData.Api.Tests.WordGeneration
                 "John",
                 "Canary"
             }));
-            var service = new Api.WordGeneration.WordGeneration(GetFakeOptions(), fakeFile, new RandomGenerator(), new GetWordParametersValidator(), new MemoryCache(new MemoryCacheOptions()));
+            var service = GetWordGenerationService(fakeFile);
 
             //act
             var result = service.GenerateRandomString(new GetWordParameters
@@ -169,7 +164,7 @@ namespace RandomData.Api.Tests.WordGeneration
         {
             //arrange
             var fakeFile = new FakeFileReader("Hamburger");
-            var service = new Api.WordGeneration.WordGeneration(GetFakeOptions(), fakeFile, new RandomGenerator(), new GetWordParametersValidator(), new MemoryCache(new MemoryCacheOptions()));
+            var service = GetWordGenerationService(fakeFile);
 
             //act/assert
             service.Invoking(x => x.GenerateRandomString(new GetWordParameters
@@ -184,7 +179,7 @@ namespace RandomData.Api.Tests.WordGeneration
         {
             //arrange
             var fakeFile = new FakeFileReader("Hamburger");
-            var service = new Api.WordGeneration.WordGeneration(GetFakeOptions(), fakeFile, new RandomGenerator(), new GetWordParametersValidator(), new MemoryCache(new MemoryCacheOptions()));
+            var service = GetWordGenerationService(fakeFile);
 
             //act/assert
             service.Invoking(x => x.GenerateRandomString(new GetWordParameters
@@ -193,6 +188,17 @@ namespace RandomData.Api.Tests.WordGeneration
                     MaxLength = 1
                 }))
                 .Should().ThrowExactly<InvalidWordsDictionaryException>();
+        }
+
+        private static Api.WordGeneration.WordGeneration GetWordGenerationService(IFileReader fileReader, WordsGenerationOptions options = null)
+        {
+            return new Api.WordGeneration.WordGeneration(options ?? GetFakeOptions(), new RandomGenerator(),
+                new GetWordParametersValidator(),fileReader, new MemoryCache(new MemoryCacheOptions()));
+        }
+        private static WordsGenerationOptions GetFakeOptions()
+        {
+            return new WordsGenerationOptions
+                {WordsDictionaryLocation = "fakefile.txt"};
         }
     }
 }

@@ -73,18 +73,12 @@ namespace RandomData.Api.Extensions.StringManipulation
 
         public static string ToSnakeCase(this string input)
         {
-            if (input == null)
-                return null;
-            else
-                return string.IsNullOrWhiteSpace(input) ? string.Empty : input.ToLower().Replace(' ', '_');
+            return input?.Trim().ToLower().Replace(' ', '_');
         }
 
         public static string ToKebabCase(this string input)
         {
-            if (input == null)
-                return null;
-            else
-                return string.IsNullOrWhiteSpace(input) ? string.Empty : input.ToLower().Replace(' ', '-');
+            return input?.Trim().ToLower().Replace(' ', '-');
         }
     }
 }

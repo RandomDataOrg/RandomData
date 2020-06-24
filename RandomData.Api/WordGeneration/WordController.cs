@@ -5,7 +5,7 @@ using RandomData.Api.WordGeneration.Validators;
 namespace RandomData.Api.WordGeneration
 {
     [ApiController] 
-    [Route("/word")]
+    [Route("[controller]")]
     public class WordController : ControllerBase
     {
         private readonly WordGeneration _wordGeneration;
@@ -18,10 +18,10 @@ namespace RandomData.Api.WordGeneration
         }
 
         /// <summary>
-        ///     Returns random word
+        /// Returns random word
         /// </summary>
-        /// <response code="200">Ok</response>
-        /// <response code="401">Bad Request</response>
+        /// <response code="200">Random word</response>
+        /// <response code="400">Error message</response>
         [Produces("text/plain")]
         [HttpGet("")]
         public ActionResult<string> GetRandomWord([FromQuery] GetWordParameters parameters)

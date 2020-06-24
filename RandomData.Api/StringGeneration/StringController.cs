@@ -5,7 +5,7 @@ using RandomData.Api.StringGeneration.Validators;
 namespace RandomData.Api.StringGeneration
 {
     [ApiController]
-    [Route("/string")]
+    [Route("[controller]")]
     public class StringController : ControllerBase
     {
         private readonly StringGeneration _stringGeneration;
@@ -19,10 +19,10 @@ namespace RandomData.Api.StringGeneration
         }
 
         /// <summary>
-        ///     Returns random string
+        /// Returns random string
         /// </summary>
-        /// <response code="200">Ok</response>
-        /// <response code="401">Bad Request</response>
+        /// <response code="200">Random string</response>
+        /// <response code="400">Error message</response>
         [Produces("text/plain")]
         [HttpGet("")]
         public ActionResult<string> GetRandomString([FromQuery] GetStringParameters parameters)
