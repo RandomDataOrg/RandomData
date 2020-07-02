@@ -4,6 +4,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RandomData.Api.Extensions;
+using RandomData.Api.Services.FileReader;
+using RandomData.Api.Services.Random;
+using RandomData.Api.StringGeneration;
+using RandomData.Api.WordGeneration;
 using RandomData.Api.GuidGenerators;
 
 namespace RandomData.Api
@@ -19,8 +23,13 @@ namespace RandomData.Api
 
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddGuidGenerator();
+			services.AddMemoryCache();
 			services.AddSwaggerWithConfig(Configuration);
+			services.AddFileReaderService();
+			services.AddRandomService();
+			services.AddStringGenerationService();
+			services.AddWordGenerationService();
+			services.AddGuidGenerator();
 			services.AddControllers();
 		}
 
