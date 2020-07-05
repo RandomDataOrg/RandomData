@@ -27,7 +27,6 @@ namespace RandomData.Api
 			services.AddDateTimeGenerator();
 			services.AddTimeGenerator();
 			services.AddDateGenerator();
-			services.RegisterProblemDetails();
 			services.AddSwaggerWithConfig(Configuration);
 			services.AddControllers();
 		}
