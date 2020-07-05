@@ -1,5 +1,8 @@
-﻿namespace RandomData.Api.DateTimeGenerators.DateGenerators
+﻿using System.Text.Json.Serialization;
+
+namespace RandomData.Api.DateTimeGenerators.DateGenerators
 {
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum RandomDateFormats
     {
         Short = 0,
